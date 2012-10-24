@@ -1,0 +1,413 @@
+/* general stuff */
+body {
+	background-color: #f7f7f7;
+	color: #000000;
+	margin: 0px;
+	padding: 0px;
+	font-size: 12px;
+}
+
+
+a {
+	color: #000000;
+}
+
+a:hover {
+	color: #5c5c5c;
+}
+
+a.titre {
+	color: #5c5c5c;
+	text-decoration: none;
+}
+
+a.titre:hover {
+	color: #5c5c5c;
+	text-decoration: underline;
+}
+
+img {
+	border: none;
+}
+
+img.idupe {
+	position:absolute;
+	z-index:30000;
+	visibility:hidden;
+}
+
+.doubleclear {
+	clear: both;
+}
+
+.rightclear {
+	clear: right;
+}
+
+.leftclear {
+	clear: left;
+}
+
+.active {
+	color: #5c5c5c;
+}
+
+
+/* For nice button */
+input[type="button"], input[type="submit"] {
+	background-color: #d6d6d6;
+	border: none;
+	color: #000000;
+	margin: 2px 0px 0px 0px;
+	padding: 0px 20px 0px 2px;
+	font-size: 12px;
+	cursor: pointer;
+	background-image: url('./images/arrow.jpg');
+	background-repeat: no-repeat;
+	background-position: center right;
+	width:auto;
+   	overflow:visible;
+}
+
+
+/* header logo, menu langue, motd and cart */
+#header {
+	margin: 0px auto;
+	padding: 0px 10px;
+	width: 940px;
+	height: 122px;
+	background-image: url('./images/header.jpg');
+	background-repeat: no-repeat;
+	background-position: top left;
+}
+
+
+/* loginurl to display the url to login or register */
+#loginurl
+{
+	float: right;
+	clear: right;
+	margin: 3px 0px 0px 0px;
+	padding: 0px;
+	text-align: right;
+}
+
+
+/* welcomemsg to display the welcome message */
+#welcomemsg
+{
+	float: left;
+	clear: left;
+	margin: 65px 0px 0px 0px;
+	padding: 0px;
+	width: 350px;
+	font-weight: bold;
+	font-size: 16px;
+	text-align: center;
+	color: #a3a3a3;
+}
+
+/* menu lang to chose your language */
+#menulang {
+	float: left;
+	clear: left;
+	margin: 3px 0px 0px 0px;
+	padding: 0px;
+	text-transform: uppercase;
+	font-weight: bold;
+	text-align: left;
+}
+
+#menulang ul {
+	margin: 0px;
+	padding: 0px;
+}
+
+#menulang li {
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+	display: inline;
+}
+
+#menulang a {
+	padding: 0px 15px 0px 0px;
+	text-decoration: none;
+}
+
+/* cart to write the status of the cart */
+#cart {
+	float: right;
+	clear: right;
+	margin: 60px 0px 0px 0px;
+	padding: 0px;
+	font-weight: bold;
+	text-align: right;
+}
+
+
+/* topmenu and bottommenu will contain links */
+#topmenu {
+	background-color: #ffffff;
+	background-image: url('./images/topmenu.jpg');
+	background-repeat: no-repeat;
+	background-position: top left;
+}
+
+#bottommenu {
+	background-image: url('./images/bottommenu.jpg');
+	background-repeat: no-repeat;
+	background-position: top left;
+}
+
+#topmenu,#bottommenu {
+	margin: 0px auto;
+	padding: 2px 0px;
+	width: 960px;
+	font-weight: bold;
+	font-size: 11px;
+}
+
+#topmenu ul,#bottommenu ul {
+	margin: 0px;
+	padding: 0px;
+	width: 960px;
+	text-align: center;
+}
+
+#topmenu li,#bottommenu li {
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+	display: inline;
+	text-align: center;
+}
+
+#topmenu a,#bottommenu a {
+	padding: 1px 10px 1px 0px;
+	margin: 0px;
+	text-decoration: none;
+}
+
+#topmenu a.active,#bottommenu a.active {
+	color: #5c5c5c;
+}
+
+#topmenu a:hover,#bottommenu a:hover {
+	text-decoration: none;
+	color: #5c5c5c;
+}
+
+/* Container will containe the sidemenu, the newscontainer and the content or fullcontent element */
+#container {
+	background-color: #ffffff;
+	margin: 0px auto;
+	padding: 0px;
+	width: 960px;
+}
+
+/* sidemenu the each categories and type of items */
+#sidemenu {
+	background-color: #f7f7f7;
+	float: left;
+	clear: left;
+	width: 176px;
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
+	font-weight: bold;
+}
+
+#sidemenu a {
+	text-decoration: none;
+}
+
+/* cat for each categories of items */
+#sidemenu div.cat {
+	padding: 10px 0px 0px 0px;
+	margin: 5px 0px 0px 0px;
+	width: 200px;
+	height: 40px;
+	background-image: url('./images/cat.jpg');
+	background-repeat: no-repeat;
+}
+
+#sidemenu div.catactive {
+	padding: 10px 0px 0px 0px;
+	margin: 5px 0px 0px 0px;
+	width: 200px;
+	height: 40px;
+	background-image: url('./images/catactive.jpg');
+	background-repeat: no-repeat;
+}
+
+#sidemenu a.cat {
+	color: white;
+}
+
+#sidemenu a.catactive {
+	color: #a3a3a3;
+}
+
+#sidemenu a.cat:hover {
+	color: #a3a3a3;
+}
+
+/* type for each type of items */
+#type {
+	padding: 0px 0px 0px 10px;
+	margin: 0px;
+	width: 166px;
+	text-align: left;
+}
+
+#type ul {
+	margin: 0px;
+	padding: 0px;
+}
+
+#type li {
+	margin: 0px;
+	padding: 3px 0px;
+	list-style: none;
+}
+
+/* content will contain all the information of the current page */
+#content {
+	float: right;
+	clear: right;
+	width: 780px;
+	padding: 0px;
+	margin: 0px;
+	text-align: justify;
+}
+
+/* content will contain all the information of the current page whitout the side menu*/
+#fullcontent {
+	float: right;
+	clear: right;
+	width: 960px;
+	padding: 0px;
+	margin: 0px;
+	text-align: justify;
+}
+
+#content h1,#content h2,#content h3,#content h4,#content h5,#content h6,
+#fullcontent h1,#fullcontent h2,#fullcontent h3,#fullcontent h4,#fullcontent h5,#fullcontent h6
+{
+	color: #c5c5c5;
+	margin: 2px 0px;
+	padding: 0px 10px;
+	text-align: left;
+}
+
+#content h1, #fullcontent h1 {
+	font-size: 18px;
+}
+
+#content h2, #fullcontent h2 {
+	font-size: 16px;
+}
+
+#content h3, #fullcontent h3 {
+	font-size: 14px;
+}
+
+#content h4, #fullcontent h4 {
+	font-size: 12px;
+}
+
+#content h5, #fullcontent h5 {
+	font-size: 10px;
+}
+
+#content h6, #fullcontent h6 {
+	font-size: 8px;
+}
+
+#fullcontent p, #content p {
+	margin: 2px 0px;
+	padding: 0px 10px;
+}
+
+/* news to contain a news */
+div.news {
+	float: right;
+	width: 275px;
+	padding: 11px 0px 11px 0px;
+	margin: 0px 0px 0px 0px;
+	text-align: left;
+	background-image: url('./images/newsbackground.jpg');
+	background-repeat: repeat-y;
+	background-position: top left;
+}
+
+h1.news {
+	text-align: left;
+	font-size: 18px;
+	color: #c5c5c5;
+}
+
+span.news {
+	margin: 0px;
+	padding: 0px 10px;
+	font-size: 9px;
+	color: #333333;
+}
+
+
+/* motd will containe the messages of the day */
+.motd
+{
+	padding: 3px 0px;
+	text-align: center;
+	font-weight: bold;
+}
+
+
+/* banniere will containe the banners */
+.banniere
+{
+	padding: 0px;
+	margin: 0px;
+	float: left;
+	
+}
+
+
+/* navigator */
+.navigator
+{
+	margin: 0px;
+	padding: 10px 0px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.navigatorbox
+{
+	margin: 0px;
+	padding: 5px;
+	background-color: #d6d6d6;
+}
+
+/* footer will contain the footer information */
+#footer {
+	margin: 0px auto;
+	padding: 10px 0px;
+	width: 960px;
+	text-align: center;
+}
+
+#footer ul {
+	margin: 0px;
+	padding: 0px;
+}
+
+#footer li {
+	font-size: 9px;
+	margin: 0px;
+	padding: 0px 10px;
+	list-style: none;
+	display: inline;
+}

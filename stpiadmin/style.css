@@ -1,0 +1,153 @@
+/* defaults*/
+body
+{
+	margin: 0px;
+	padding: 0px;
+	background: #DADADA;
+	font-family:"Times New Roman", Times, serif; font-size:16px;
+	height: 100%;
+	width: 100%;
+}
+
+a
+{
+	color: #38384B;
+	text-decoration: underline;
+}
+
+a:hover
+{
+	color: #9B1616;
+	text-decoration: none;
+}
+
+h1
+{
+	font-weight: normal;
+	color: #38384B;
+	line-height: 130%;
+}
+
+h2, h2, h3, h4, h5, h6
+{
+	font-weight: normal;
+	border-top: solid #38384B;
+	line-height: 130%;
+}
+
+
+/* menu */
+#menu, #menulang
+{
+	font-weight: bold;
+}
+
+#menulang
+{
+	float: right;
+	text-transform: uppercase;
+}
+
+#menu ul, #menulang ul
+{
+	margin: 0px;
+	padding: 0px;
+}
+
+#menu li
+{
+	padding: 5px 0px;
+}
+
+#menulang  li
+{
+	padding: 0px;
+}
+
+#menu li, #menulang li
+{
+	margin: 0px;
+	list-style: none;	
+}
+
+#menulang li
+{
+	display: inline;
+	padding: 0px 20px 0px 0px;
+}
+
+#menu a, #menulang a
+{
+	color: #38384B;
+	text-decoration: none;
+}
+
+#menu a:hover, #menulang a:hover
+{
+	color:#9B1616;
+}
+
+#menulang a.active, #menu a.active, #footer a.active
+{
+	color:#9B1616;
+}
+
+
+/* gauche - pour contenir le menu et login */
+#gauche
+{
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	margin: 0px;
+	padding: 10% 10px 5% 10px;
+	background: #d0dce0 url('./images/logo.jpg') no-repeat 0px 0px;
+	width: 180px;
+	/*
+	min-height: 600px;
+	height: 85%;
+	*/
+	min-height: 85%;
+	text-align: center;
+}
+
+/* droite - pour contenir le menulang et le reste du contenue */
+#droite
+{
+	position: absolute;
+	left: 200px;
+	top: 0px;
+	margin: 5% 0px 0px 0px;
+	padding: 0px 50px 5% 50px;
+	min-width: 470px;
+	/*
+	min-height: 600px;
+	height: 90%;
+	*/
+	min-height: 90%;
+}
+
+
+/* footer */
+#footer
+{
+	margin: 0px;
+	padding: 50px 0px 0px 0px;	
+	width: 180px;
+	font-size: 9px;
+	color: #333333;
+}
+
+
+#footer li
+{
+	margin: 0px;
+	padding: 0px;	
+	list-style: none;
+}
+
+#footer ul
+{
+	margin: 0px;
+	padding: 0px;
+}

@@ -1,0 +1,50 @@
+<?php
+
+	$this->arrTxt["client"] = "Cliente";
+	$this->arrTxt["courriel"] = "Email";
+	$this->arrTxt["password"] = "Clave de acceso";
+	$this->arrTxt["password2"] = "Reingrese la clave de acceso";
+	$this->arrTxt["nom"] = "Apellido";
+	$this->arrTxt["prenom"] = "Nombre";
+	$this->arrTxt["cie"] = "Compañía (Opcional)";
+	$this->arrTxt["tel"] = "Teléfono";
+	$this->arrTxt["adresse"] = "Dirección";
+	$this->arrTxt["ville"] = "Ciudad";
+	$this->arrTxt["province"] = "Provincia";
+	$this->arrTxt["country"] = "País";
+	$this->arrTxt["codepostal"] = "Código postal";
+	$this->arrTxt["lang"] = "Idioma";
+	$this->arrTxt["add"] = "Agregar";
+	$this->arrTxt["edit"] = "Modificar";
+	$this->arrTxt["save"] = "Guardar";
+	$this->arrTxt["delete"] = "Suprimir";
+	$this->arrTxt["confirm"] = "Esta usted seguro de querer suprimir este cliente?";
+	$this->arrTxt["booldelete"] = "Usted no tiene derecho de suprimir este cliente.";
+	$this->arrTxt["changepassword"] = "Cambie su clave de acceso";
+	$this->arrTxt["resetpassword"] = "Reinicialización de la clave de acceso";
+	$this->arrTxt["confirmpassreset"] = "Esta usted seguro de reinicializar la clave de acceso?";
+	$this->arrTxt["passchanged"] = "La clave de acceso ha sido reinicializada a :";
+	$this->arrTxt["newpasschanged"] = "La clave de acceso ha sido cambiada.";
+	$this->arrTxt["captcha"] = "Captcha";
+	$this->arrTxt["yes"] = "Si";
+	$this->arrTxt["no"] = "No";
+
+	$this->arrErrTxt["invalid"] = "La identificación del cliente no es válida.";
+	$this->arrErrTxt["noexists"] = "El cliente no existe.";
+	$this->arrErrTxt["courrielexists"] = "El email ya esta registrado.";
+	$this->arrErrTxt["invalidpassword"] = "La clave de acceso no es válida.";
+	$this->arrErrTxt["passwordweak"] = "La clave de acceso no es suficientemente robusta.";
+	$this->arrErrTxt["invalidoldpassword"] = "La clave de acceso anterior no es válida.";
+	$this->arrErrTxt["invalidnom"] = "El apellido no es válido.";
+	$this->arrErrTxt["invalidprenom"] = "El nombre no es válido.";
+	$this->arrErrTxt["invalidcie"] = "El nombre de la compañía no es válido.";
+	$this->arrErrTxt["invalidtel"] = "El numero de teléfono no es válido.";
+	$this->arrErrTxt["invalidadresse"] = "La dirección no es válida.";
+	$this->arrErrTxt["invalidville"] = "La ciudad no es válida.";
+	$this->arrErrTxt["invalidcodepostal"] = "El código postal no es válido.";
+	$this->arrErrTxt["invalidlang"] = "El idioma no es válido.";
+	$this->arrErrTxt["editing"] = "Un error se ha producido durante la modificación del cliente.";
+	$this->arrErrTxt["adding"] = "Un error se ha producido durante la inscripcion de un cliente.";
+	$this->arrErrTxt["deleting"] = "Un error se ha producido durante la eliminacion de un cliente.";
+	$this->arrErrTxt["changingpass"] = "Un error se ha producido durante el cambio de la clave de acceso.";
+?>

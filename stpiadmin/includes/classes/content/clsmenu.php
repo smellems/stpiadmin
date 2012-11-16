@@ -90,18 +90,12 @@ class clsmenu
 	public function stpi_affPublicMenuLang()
 	{
 		$this->stpi_setArrLang();
-		
 		if (isset($this->arrLang))
 		{
 			print("<ul>\n");
 			foreach ($this->arrLang as $k => $v)
 			{
-				print("<li><a ");
-				if ($k == LG)
-				{
-					print("class=\"active\" ");
-				}
-				print("href=\"./" . $this->strPage);
+				print("<li id=\"base-fullhd-lang\"><a lang=\"LG\" href=\"./" . $this->strPage);
 				print("?l=" . $k);
 				foreach ($_GET as $k1 => $v1)
 				{
@@ -125,16 +119,16 @@ class clsmenu
 		{
 			if ($arrNbMenuElementID = $objMenuElement->stpi_selNbMenuID())
 			{
-				print("<ul>");
+				print("<ul class=\"mb-menu\">");
 				foreach ($arrNbMenuElementID as $nbMenuElementID)
 				{
 					if ($objMenuElement->stpi_setNbID($nbMenuElementID))
 					{
 						if ($objMenuElement->stpi_setObjMenuElementLgFromBdd())
 						{
-							print("<li><a href=\"");
+							print("<li><div><a href=\"");
 							print($this->objBdd->stpi_trsBddToHTML($objMenuElement->stpi_getObjMenuElementLg()->stpi_getStrLien()) . "\">");
-							print($this->objBdd->stpi_trsBddToHTML($objMenuElement->stpi_getObjMenuElementLg()->stpi_getStrText()) . "</a></li>\n");
+							print($this->objBdd->stpi_trsBddToHTML($objMenuElement->stpi_getObjMenuElementLg()->stpi_getStrText()) . "</a></div></li>\n");
 						}
 					}
 				}

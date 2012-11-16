@@ -35,421 +35,368 @@
 	$objSousItem =& $objItem->stpi_getObjSousItem();
 	$objPrix =& $objSousItem->stpi_getObjPrix();
 	
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-	<?php
-		$objHead->stpi_affPublicHead();
-	?>
-	</head>
-	<body>
-	
-	<div id="header">
-		<div id="menulang">
-			<?php
-				$objMenu->stpi_affPublicMenuLang();
-			?>
-		</div>		
-		<div id="loginurl">
-			<?php
-				$objLock->stpi_affUrl();
-			?>
-		</div>		
-		<div id="cart"><?php $objBody->stpi_affCartUrl();  ?></div>
-		
-		<div id="welcomemsg">
-			<?php
-				print($objTexte->stpi_getArrTxt("welcome"));
-			?>
-		</div>				
-	</div>
-	
-	<div id="topmenu">
-		<?php
-			$objMenu->stpi_affPublicMenu();
-		?>		
-	</div>
-	
-	<div id="container">		
-		<div id="fullcontent">
-		<?php
-			$objJavaScript->stpi_affArrLang();
-			$objJavaScript->stpi_affCreateXmlHttp();
-			$objJavaScript->stpi_affNoAjax();
-			
-			$objJavaScript->stpi_affNoJavaScript();
-			
-			$objMotd->stpi_affPublic();
-			
-			$objSousItem->stpi_affJsEditSousItemFromCommande();
-			$objSousItem->stpi_affJsDelSousItemFromCommande();
-			$objSousItem->stpi_affJsEditSousItemFromCommandeRegistre();
-			$objSousItem->stpi_affJsDelSousItemFromCommandeRegistre();
-			
-			print("<h2>" . $objTexte->stpi_getArrTxt("checkout1") . "</h2>\n");
-			
-			if (isset($_SESSION["stpiObjCommandeSession"]))
+	// Début page
+	$objHead->stpi_affPublicHead();
+	$objBody->stpi_affBodyHeader($objPageLg->stpi_getStrTitre());
+
+	// <!-- MainContentStart -->
+	$objJavaScript->stpi_affArrLang();
+	$objJavaScript->stpi_affCreateXmlHttp();
+	$objJavaScript->stpi_affNoAjax();
+
+	$objJavaScript->stpi_affNoJavaScript();
+
+	$objMotd->stpi_affPublic();
+
+	$objSousItem->stpi_affJsEditSousItemFromCommande();
+	$objSousItem->stpi_affJsDelSousItemFromCommande();
+	$objSousItem->stpi_affJsEditSousItemFromCommandeRegistre();
+	$objSousItem->stpi_affJsDelSousItemFromCommandeRegistre();
+
+	print("<h2>" . $objTexte->stpi_getArrTxt("checkout1") . "</h2>\n");
+
+	if (isset($_SESSION["stpiObjCommandeSession"]))
+	{
+		if ($objCommandeSession = $objCommandeSession->stpi_getObjCommandeSessionFromSession())
+		{
+			if ($arrObjCommandeSousItemSession = $objCommandeSession->stpi_getArrObjCommandeSousItemSession())
 			{
-				if ($objCommandeSession = $objCommandeSession->stpi_getObjCommandeSessionFromSession())
+				if(!empty($arrObjCommandeSousItemSession))
 				{
-					if ($arrObjCommandeSousItemSession = $objCommandeSession->stpi_getArrObjCommandeSousItemSession())
+					$strArrSousItem = "0";
+				
+					print("<table width=\"100%\" style=\"padding: 10px;\" >\n");
+					print("<tr>\n");
+					print("<td style=\"text-align: left;\" >\n");
+					print("<h3 style=\"padding: 0px;\" >\n");
+					print($objCommandeSousItem->stpi_getObjTexte()->stpi_getArrTxt("desc"));
+					print("</h3>\n");
+					print("</td>\n");
+					print("<td style=\"text-align: left;\" >\n");
+					print("<h3 style=\"padding: 0px;\" >\n");
+					print($objCommande->stpi_getObjTexte()->stpi_getArrTxt("quantityprice"));
+					print("</h3>\n");
+					print("</td>\n");
+					print("<td style=\"text-align: right;\" >\n");
+					print("<h3 style=\"padding: 0px; text-align: right;\" >\n");
+					print($objCommande->stpi_getObjTexte()->stpi_getArrTxt("total"));
+					print("</h3>\n");
+					print("</td>\n");
+					print("<td>\n");
+					print("&nbsp;");
+					print("</td>\n");
+					print("</tr>\n");
+				
+					$arrObjCommandeSousItem = array();
+				
+					foreach ($arrObjCommandeSousItemSession as $objCommandeSousItemSession)
 					{
-						if(!empty($arrObjCommandeSousItemSession))
+						if ($objSousItem->stpi_setNbID($objCommandeSousItemSession->stpi_getNbSousItemID()))
 						{
-							$strArrSousItem = "0";
-							
-							print("<table width=\"100%\" style=\"padding: 10px;\" >\n");
-							print("<tr>\n");
-							print("<td style=\"text-align: left;\" >\n");
-							print("<h3 style=\"padding: 0px;\" >\n");
-							print($objCommandeSousItem->stpi_getObjTexte()->stpi_getArrTxt("desc"));
-							print("</h3>\n");
-							print("</td>\n");
-							print("<td style=\"text-align: left;\" >\n");
-							print("<h3 style=\"padding: 0px;\" >\n");
-							print($objCommande->stpi_getObjTexte()->stpi_getArrTxt("quantityprice"));
-							print("</h3>\n");
-							print("</td>\n");
-							print("<td style=\"text-align: right;\" >\n");
-							print("<h3 style=\"padding: 0px; text-align: right;\" >\n");
-							print($objCommande->stpi_getObjTexte()->stpi_getArrTxt("total"));
-							print("</h3>\n");
-							print("</td>\n");
-							print("<td>\n");
-							print("&nbsp;");
-							print("</td>\n");
-							print("</tr>\n");
-							
-							$arrObjCommandeSousItem = array();
-							
-							foreach ($arrObjCommandeSousItemSession as $objCommandeSousItemSession)
+							$objCommandeSousItemNew = new clscommandesousitem();
+							$objCommandeSousItemNew->stpi_setNbSousItemID($objSousItem->stpi_getNbID());
+							$objCommandeSousItemNew->stpi_setStrItemCode($objSousItem->stpi_getStrItemCode);
+							if ($objPrix->stpi_setNbID($objSousItem->stpi_getNbID(), 1))
 							{
-								if ($objSousItem->stpi_setNbID($objCommandeSousItemSession->stpi_getNbSousItemID()))
-								{
-									$objCommandeSousItemNew = new clscommandesousitem();
-									$objCommandeSousItemNew->stpi_setNbSousItemID($objSousItem->stpi_getNbID());
-									$objCommandeSousItemNew->stpi_setStrItemCode($objSousItem->stpi_getStrItemCode);
-									if ($objPrix->stpi_setNbID($objSousItem->stpi_getNbID(), 1))
-									{
-										$objCommandeSousItemNew->stpi_setNbPrix($objPrix->stpi_getNbPrix());	
-									}
-									$objCommandeSousItemNew->stpi_setNbQte($objCommandeSousItemSession->stpi_getNbQte());
-									if ($objItem->stpi_setNbID($objSousItem->stpi_getNbItemID()))
-									{
-										$objCommandeSousItemNew->stpi_setStrSousItemDesc($objItem->stpi_getStrSousItemDesc());
-									}
-									$arrObjCommandeSousItem[$objSousItem->stpi_getNbID()] = $objCommandeSousItemNew;
-								}
+								$objCommandeSousItemNew->stpi_setNbPrix($objPrix->stpi_getNbPrix());	
 							}
-							
-							$objCommande->stpi_setArrObjCommandeSousItem($arrObjCommandeSousItem);
+							$objCommandeSousItemNew->stpi_setNbQte($objCommandeSousItemSession->stpi_getNbQte());
+							if ($objItem->stpi_setNbID($objSousItem->stpi_getNbItemID()))
+							{
+								$objCommandeSousItemNew->stpi_setStrSousItemDesc($objItem->stpi_getStrSousItemDesc());
+							}
+							$arrObjCommandeSousItem[$objSousItem->stpi_getNbID()] = $objCommandeSousItemNew;
+						}
+					}
+				
+					$objCommande->stpi_setArrObjCommandeSousItem($arrObjCommandeSousItem);
+			
+					foreach ($arrObjCommandeSousItem as $objCommandeSousItem)
+					{
+						$strArrSousItem .= ", " . $objBdd->stpi_trsBddToHTML($objCommandeSousItem->stpi_getNbSousItemID());
+					
+						print("<tr>\n");
+						print("<td style=\"text-align: left;\" >\n");
+						$strItemCode = $objCommandeSousItem->stpi_getStrItemCode();
+						if (empty($strItemCode))
+						{
+							print($objBdd->stpi_trsBddToHTML($objCommandeSousItem->stpi_getStrSousItemDesc()));
+						}
+						else
+						{
+							print($objBdd->stpi_trsBddToHTML($strItemCode) .  " - " . $objBdd->stpi_trsBddToHTML($objCommandeSousItem->stpi_getStrSousItemDesc()));
+						}
+						print("</td>\n");
+						print("<td style=\"text-align: left;\" >\n");
+						print("<input type=\"text\" maxlength=\"3\" size=\"2\" id=\"nbQuantity" . $objBdd->stpi_trsBddToHTML($objCommandeSousItem->stpi_getNbSousItemID()) . "\" value=\"" . $objBdd->stpi_trsBddToHTML($objCommandeSousItem->stpi_getNbQte()) . "\" /> X ");
+						print($objBdd->stpi_trsBddToHTML($objBody->stpi_trsNbToPrix($objCommandeSousItem->stpi_getNbPrix())) . "$");
+						print("</td>\n");
+						print("<td style=\"text-align: right;\" >\n");
+						print($objBdd->stpi_trsBddToHTML($objBody->stpi_trsNbToPrix($objCommandeSousItem->stpi_getNbQte() * $objCommandeSousItem->stpi_getNbPrix())) . "$");
+						print("</td>\n");
+						print("<td style=\"text-align: right;\" >\n");
+						print("<input type=\"button\" id=\"stpi_delSousItemFromCommande" . $objBdd->stpi_trsBddToHTML($objCommandeSousItem->stpi_getNbSousItemID()). "\" onclick=\"stpi_delSousItemFromCommande(" . $objBdd->stpi_trsBddToHTML($objCommandeSousItem->stpi_getNbSousItemID()) . ")\" value=\"" . $objCommande->stpi_getObjTexte()->stpi_getArrTxt("delete") . "\" />\n");
+						print("</td>\n");
+						print("</tr>\n");
+					}
+				
+					print("<tr>\n");
+					print("<td colspan=\"2\" style=\"text-align: right;\" >\n");
+					print($objCommande->stpi_getObjTexte()->stpi_getArrTxt("soustotal"));
+					print("</td>\n");
+					print("<td style=\"text-align: right;\" >\n");
+					print($objBdd->stpi_trsBddToHTML($objBody->stpi_trsNbToPrix($objCommande->stpi_getNbSousTotalFromArrObjCommandeSousItem()) . "$"));
+					print("</td>\n");
+					print("<td>\n");
+					print("&nbsp;");
+					print("</td>\n");
+					print("</tr>\n");
+				
+					$nbPrixRabais = $objCommande->stpi_getNbPrixRabaisFromArrObjCommandeSousItem();
 						
-							foreach ($arrObjCommandeSousItem as $objCommandeSousItem)
+					if (!empty($nbPrixRabais))
+					{
+						print("<tr>\n");
+						print("<td colspan=\"2\" style=\"text-align: right;\" >\n");
+						print($objCommande->stpi_getObjTexte()->stpi_getArrTxt("prixrabais"));
+						print("</td>\n");
+						print("<td style=\"text-align: right;\" >\n");
+						print($objBdd->stpi_trsBddToHTML($objBody->stpi_trsNbToPrix($nbPrixRabais)) . "$");
+						print("</td>\n");
+						print("<td>\n");
+						print("&nbsp;");
+						print("</td>\n");
+						print("</tr>\n");
+					}
+				
+					print("</table>\n");
+				
+					print("<p><a href=\"shop.php?l=" . LG . "\" >" . $objTexte->stpi_getArrTxt("returntoshop") . "</a></p>\n");
+				
+					print("<div style=\"padding: 0px 10px; margin: 0px; text-align: right;\" >\n");
+					print("<span id=\"stpi_message\" ></span>\n");
+					print("<br/>\n");
+					print("<input type=\"button\" id=\"stpi_editSousItemFromCommande\" onclick=\"stpi_editSousItemFromCommande(Array(" . $strArrSousItem . "))\" value=\"" . $objTexte->stpi_getArrTxt("updatecart") . "\" />\n");
+					print("<br/>\n");
+					$boolLogged = true;
+					if (isset($_SESSION["stpiObjUser"]))
+					{
+						if ($objUser = $objUser->stpi_getObjUserFromSession())
+						{
+							if ($objUser->stpi_getNbTypeUserID() == 2)
 							{
-								$strArrSousItem .= ", " . $objBdd->stpi_trsBddToHTML($objCommandeSousItem->stpi_getNbSousItemID());
-								
-								print("<tr>\n");
-								print("<td style=\"text-align: left;\" >\n");
-								$strItemCode = $objCommandeSousItem->stpi_getStrItemCode();
-								if (empty($strItemCode))
-								{
-									print($objBdd->stpi_trsBddToHTML($objCommandeSousItem->stpi_getStrSousItemDesc()));
-								}
-								else
-								{
-									print($objBdd->stpi_trsBddToHTML($strItemCode) .  " - " . $objBdd->stpi_trsBddToHTML($objCommandeSousItem->stpi_getStrSousItemDesc()));
-								}
-								print("</td>\n");
-								print("<td style=\"text-align: left;\" >\n");
-								print("<input type=\"text\" maxlength=\"3\" size=\"2\" id=\"nbQuantity" . $objBdd->stpi_trsBddToHTML($objCommandeSousItem->stpi_getNbSousItemID()) . "\" value=\"" . $objBdd->stpi_trsBddToHTML($objCommandeSousItem->stpi_getNbQte()) . "\" /> X ");
-								print($objBdd->stpi_trsBddToHTML($objBody->stpi_trsNbToPrix($objCommandeSousItem->stpi_getNbPrix())) . "$");
-								print("</td>\n");
-								print("<td style=\"text-align: right;\" >\n");
-								print($objBdd->stpi_trsBddToHTML($objBody->stpi_trsNbToPrix($objCommandeSousItem->stpi_getNbQte() * $objCommandeSousItem->stpi_getNbPrix())) . "$");
-								print("</td>\n");
-								print("<td style=\"text-align: right;\" >\n");
-								print("<input type=\"button\" id=\"stpi_delSousItemFromCommande" . $objBdd->stpi_trsBddToHTML($objCommandeSousItem->stpi_getNbSousItemID()). "\" onclick=\"stpi_delSousItemFromCommande(" . $objBdd->stpi_trsBddToHTML($objCommandeSousItem->stpi_getNbSousItemID()) . ")\" value=\"" . $objCommande->stpi_getObjTexte()->stpi_getArrTxt("delete") . "\" />\n");
-								print("</td>\n");
-								print("</tr>\n");
-							}
-							
-							print("<tr>\n");
-							print("<td colspan=\"2\" style=\"text-align: right;\" >\n");
-							print($objCommande->stpi_getObjTexte()->stpi_getArrTxt("soustotal"));
-							print("</td>\n");
-							print("<td style=\"text-align: right;\" >\n");
-							print($objBdd->stpi_trsBddToHTML($objBody->stpi_trsNbToPrix($objCommande->stpi_getNbSousTotalFromArrObjCommandeSousItem()) . "$"));
-							print("</td>\n");
-							print("<td>\n");
-							print("&nbsp;");
-							print("</td>\n");
-							print("</tr>\n");
-							
-							$nbPrixRabais = $objCommande->stpi_getNbPrixRabaisFromArrObjCommandeSousItem();
-									
-							if (!empty($nbPrixRabais))
-							{
-								print("<tr>\n");
-								print("<td colspan=\"2\" style=\"text-align: right;\" >\n");
-								print($objCommande->stpi_getObjTexte()->stpi_getArrTxt("prixrabais"));
-								print("</td>\n");
-								print("<td style=\"text-align: right;\" >\n");
-								print($objBdd->stpi_trsBddToHTML($objBody->stpi_trsNbToPrix($nbPrixRabais)) . "$");
-								print("</td>\n");
-								print("<td>\n");
-								print("&nbsp;");
-								print("</td>\n");
-								print("</tr>\n");
-							}
-							
-							print("</table>\n");
-							
-							print("<p><a href=\"shop.php?l=" . LG . "\" >" . $objTexte->stpi_getArrTxt("returntoshop") . "</a></p>\n");
-							
-							print("<div style=\"padding: 0px 10px; margin: 0px; text-align: right;\" >\n");
-							print("<span id=\"stpi_message\" ></span>\n");
-							print("<br/>\n");
-							print("<input type=\"button\" id=\"stpi_editSousItemFromCommande\" onclick=\"stpi_editSousItemFromCommande(Array(" . $strArrSousItem . "))\" value=\"" . $objTexte->stpi_getArrTxt("updatecart") . "\" />\n");
-							print("<br/>\n");
-							$boolLogged = true;
-							if (isset($_SESSION["stpiObjUser"]))
-							{
-								if ($objUser = $objUser->stpi_getObjUserFromSession())
-								{
-									if ($objUser->stpi_getNbTypeUserID() == 2)
-									{
-										print("<input type=\"button\" id=\"buttoncontinue\" onclick=\"window.location = './checkout2.php?l=" . LG . "';\" value=\"" . $objTexte->stpi_getArrTxt("continue") . "\" />\n");
-									}
-									else
-									{
-										$boolLogged = false;
-									}
-								}
-								else
-								{
-									$boolLogged = false;	
-								}
+								print("<input type=\"button\" id=\"buttoncontinue\" onclick=\"window.location = './checkout2.php?l=" . LG . "';\" value=\"" . $objTexte->stpi_getArrTxt("continue") . "\" />\n");
 							}
 							else
 							{
 								$boolLogged = false;
 							}
-							if (!$boolLogged)
-							{
-								print("<input type=\"button\" id=\"buttonlogincontinue\" onclick=\"window.location = './login.php?redirect=checkout2&amp;l=" . LG . "';\" value=\"" . $objTexte->stpi_getArrTxt("buttonlogincontinue") . "\" />\n");
-								print("<br/>\n");
-								print("<input type=\"button\" id=\"buttonnologincontinue\" onclick=\"window.location = './checkout2.php?l=" . LG . "';\" value=\"" . $objTexte->stpi_getArrTxt("buttonnologincontinue") . "\" />\n");
-							}			
-							print("</div><br/>\n");
-			
 						}
 						else
 						{
-							print("<span style=\"color:#FF0000;\">" . $objTexte->stpi_getArrErrTxt("emptycart") . "</span><br/>\n");
+							$boolLogged = false;	
 						}
+					}
+					else
+					{
+						$boolLogged = false;
+					}
+					if (!$boolLogged)
+					{
+						print("<input type=\"button\" id=\"buttonlogincontinue\" onclick=\"window.location = './login.php?redirect=checkout2&amp;l=" . LG . "';\" value=\"" . $objTexte->stpi_getArrTxt("buttonlogincontinue") . "\" />\n");
+						print("<br/>\n");
+						print("<input type=\"button\" id=\"buttonnologincontinue\" onclick=\"window.location = './checkout2.php?l=" . LG . "';\" value=\"" . $objTexte->stpi_getArrTxt("buttonnologincontinue") . "\" />\n");
+					}			
+					print("</div><br/>\n");
+
+				}
+				else
+				{
+					print("<span style=\"color:#FF0000;\">" . $objTexte->stpi_getArrErrTxt("emptycart") . "</span><br/>\n");
+				}
+			}
+			else
+			{
+				print("<span style=\"color:#FF0000;\">" . $objTexte->stpi_getArrErrTxt("emptycart") . "</span><br/>\n");
+			}
+		}
+	}
+	if (isset($_SESSION["stpiObjCommandeRegistreSession"]))
+	{
+		if ($objCommandeSession = $objCommandeSession->stpi_getObjCommandeRegistreSessionFromSession())
+		{
+			if ($objRegistre->stpi_setNbID($objCommandeSession->stpi_getNbRegistreID()))
+			{
+				if ($arrObjCommandeSousItemSession = $objCommandeSession->stpi_getArrObjCommandeSousItemSession())
+				{
+					if(!empty($arrObjCommandeSousItemSession))
+					{
+						print("<h2>" . $objTexte->stpi_getArrTxt("forgiftlist") . $objBdd->stpi_trsBddToHTML($objRegistre->stpi_getStrRegistreCode()) . "</h2>\n");
+					
+						$strArrSousItem = "0";
+					
+						print("<table width=\"100%\" style=\"padding: 10px;\" >\n");
+						print("<tr>\n");
+						print("<td style=\"text-align: left;\" >\n");
+						print("<h3 style=\"padding: 0px;\" >\n");
+						print($objCommandeSousItem->stpi_getObjTexte()->stpi_getArrTxt("desc"));
+						print("</h3>\n");
+						print("</td>\n");
+						print("<td style=\"text-align: left;\" >\n");
+						print("<h3 style=\"padding: 0px;\" >\n");
+						print($objCommande->stpi_getObjTexte()->stpi_getArrTxt("quantityprice"));
+						print("</h3>\n");
+						print("</td>\n");
+						print("<td style=\"text-align: right;\" >\n");
+						print("<h3 style=\"padding: 0px; text-align: right;\" >\n");
+						print($objCommande->stpi_getObjTexte()->stpi_getArrTxt("total"));
+						print("</h3>\n");
+						print("</td>\n");
+						print("<td>\n");
+						print("&nbsp;");
+						print("</td>\n");
+						print("</tr>\n");
+					
+						$arrObjCommandeSousItem = array();
+					
+						foreach ($arrObjCommandeSousItemSession as $objCommandeSousItemSession)
+						{
+							if ($objSousItem->stpi_setNbID($objCommandeSousItemSession->stpi_getNbSousItemID()))
+							{
+								$objCommandeSousItemNew = new clscommandesousitem();
+								$objCommandeSousItemNew->stpi_setNbSousItemID($objSousItem->stpi_getNbID());
+								$objCommandeSousItemNew->stpi_setStrItemCode($objSousItem->stpi_getStrItemCode);
+								if ($objPrix->stpi_setNbID($objSousItem->stpi_getNbID(), 2))
+								{
+									$objCommandeSousItemNew->stpi_setNbPrix($objPrix->stpi_getNbPrix());	
+								}
+								$objCommandeSousItemNew->stpi_setNbQte($objCommandeSousItemSession->stpi_getNbQte());
+								if ($objItem->stpi_setNbID($objSousItem->stpi_getNbItemID()))
+								{
+									$objCommandeSousItemNew->stpi_setStrSousItemDesc($objItem->stpi_getStrSousItemDesc());
+								}
+								$arrObjCommandeSousItem[$objSousItem->stpi_getNbID()] = $objCommandeSousItemNew;
+							}
+						}
+					
+						$objCommande->stpi_setArrObjCommandeSousItem($arrObjCommandeSousItem);
+				
+						foreach ($arrObjCommandeSousItem as $objCommandeSousItem)
+						{
+							$strArrSousItem .= ", " . $objBdd->stpi_trsBddToHTML($objCommandeSousItem->stpi_getNbSousItemID());
+						
+							print("<tr>\n");
+							print("<td style=\"text-align: left;\" >\n");
+							$strItemCode = $objCommandeSousItem->stpi_getStrItemCode();
+							if (empty($strItemCode))
+							{
+								print($objBdd->stpi_trsBddToHTML($objCommandeSousItem->stpi_getStrSousItemDesc()));
+							}
+							else
+							{
+								print($objBdd->stpi_trsBddToHTML($strItemCode) .  " - " . $objBdd->stpi_trsBddToHTML($objCommandeSousItem->stpi_getStrSousItemDesc()));
+							}
+							print("</td>\n");
+							print("<td style=\"text-align: left;\" >\n");
+							print("<input type=\"text\" maxlength=\"3\" size=\"2\" id=\"nbQuantityRegistre" . $objBdd->stpi_trsBddToHTML($objCommandeSousItem->stpi_getNbSousItemID()) . "\" value=\"" . $objBdd->stpi_trsBddToHTML($objCommandeSousItem->stpi_getNbQte()) . "\" /> X ");
+							print($objBdd->stpi_trsBddToHTML($objBody->stpi_trsNbToPrix($objCommandeSousItem->stpi_getNbPrix())) . "$");
+							print("</td>\n");
+							print("<td style=\"text-align: right;\" >\n");
+							print($objBdd->stpi_trsBddToHTML($objBody->stpi_trsNbToPrix($objCommandeSousItem->stpi_getNbQte() * $objCommandeSousItem->stpi_getNbPrix())) . "$");
+							print("</td>\n");
+							print("<td style=\"text-align: right;\" >\n");
+							print("<input type=\"button\" id=\"stpi_delSousItemFromCommandeRegistre" . $objBdd->stpi_trsBddToHTML($objCommandeSousItem->stpi_getNbSousItemID()). "\" onclick=\"stpi_delSousItemFromCommandeRegistre(" . $objBdd->stpi_trsBddToHTML($objCommandeSousItem->stpi_getNbSousItemID()) . ")\" value=\"" . $objCommande->stpi_getObjTexte()->stpi_getArrTxt("delete") . "\" />\n");
+							print("</td>\n");
+							print("</tr>\n");
+						}
+					
+						print("<tr>\n");
+						print("<td colspan=\"2\" style=\"text-align: right;\" >\n");
+						print($objCommande->stpi_getObjTexte()->stpi_getArrTxt("soustotal"));
+						print("</td>\n");
+						print("<td style=\"text-align: right;\" >\n");
+						print($objBdd->stpi_trsBddToHTML($objBody->stpi_trsNbToPrix($objCommande->stpi_getNbSousTotalFromArrObjCommandeSousItem()) . "$"));
+						print("</td>\n");
+						print("<td>\n");
+						print("&nbsp;");
+						print("</td>\n");
+						print("</tr>\n");
+					
+						$nbPrixRabais = $objCommande->stpi_getNbPrixRabaisFromArrObjCommandeSousItem();
+							
+						if (!empty($nbPrixRabais))
+						{
+							print("<tr>\n");
+							print("<td colspan=\"2\" style=\"text-align: right;\" >\n");
+							print($objCommande->stpi_getObjTexte()->stpi_getArrTxt("prixrabais"));
+							print("</td>\n");
+							print("<td style=\"text-align: right;\" >\n");
+							print($objBdd->stpi_trsBddToHTML($objBody->stpi_trsNbToPrix($nbPrixRabais)) . "$");
+							print("</td>\n");
+							print("<td>\n");
+							print("&nbsp;");
+							print("</td>\n");
+							print("</tr>\n");
+						}
+					
+						print("</table>\n");
+					
+						print("<p><a href=\"shopregistre.php?l=" . LG . "&amp;strRegistreCode=" . $objBdd->stpi_trsBddToHTML($objRegistre->stpi_getStrRegistreCode()) . "\" >" . $objTexte->stpi_getArrTxt("returntogistlist") . "</a></p>\n");								
+					
+						print("<div style=\"padding: 0px 10px; margin: 0px; text-align: right;\" >\n");
+						print("<span id=\"stpi_messageregistre\" ></span>\n");
+						print("<br/>\n");
+						print("<input type=\"button\" id=\"stpi_editSousItemFromCommandeRegistre\" onclick=\"stpi_editSousItemFromCommandeRegistre(Array(" . $strArrSousItem . "))\" value=\"" . $objTexte->stpi_getArrTxt("updatecart") . "\" />\n");
+						print("<br/>\n");
+						$boolLogged = true;
+						if (isset($_SESSION["stpiObjUser"]))
+						{
+							if ($objUser = $objUser->stpi_getObjUserFromSession())
+							{
+								if ($objUser->stpi_getNbTypeUserID() == 2)
+								{
+									print("<input type=\"button\" id=\"buttoncontinue\" onclick=\"window.location = './checkoutregistre2.php?l=" . LG . "';\" value=\"" . $objTexte->stpi_getArrTxt("continue") . "\" />\n");
+								}
+								else
+								{
+									$boolLogged = false;
+								}
+							}
+							else
+							{
+								$boolLogged = false;	
+							}
+						}
+						else
+						{
+							$boolLogged = false;
+						}
+						if (!$boolLogged)
+						{
+							print("<input type=\"button\" id=\"buttonlogincontinue\" onclick=\"window.location = './login.php?redirect=checkoutregistre2&amp;l=" . LG . "';\" value=\"" . $objTexte->stpi_getArrTxt("buttonlogincontinue") . "\" />\n");
+							print("<br/>\n");
+							print("<input type=\"button\" id=\"buttonnologincontinue\" onclick=\"window.location = './checkoutregistre2.php?l=" . LG . "';\" value=\"" . $objTexte->stpi_getArrTxt("buttonnologincontinue") . "\" />\n");
+						}			
+						print("</div><br/>\n");
+	
 					}
 					else
 					{
 						print("<span style=\"color:#FF0000;\">" . $objTexte->stpi_getArrErrTxt("emptycart") . "</span><br/>\n");
 					}
 				}
-			}
-			if (isset($_SESSION["stpiObjCommandeRegistreSession"]))
-			{
-				if ($objCommandeSession = $objCommandeSession->stpi_getObjCommandeRegistreSessionFromSession())
+				else
 				{
-					if ($objRegistre->stpi_setNbID($objCommandeSession->stpi_getNbRegistreID()))
-					{
-						if ($arrObjCommandeSousItemSession = $objCommandeSession->stpi_getArrObjCommandeSousItemSession())
-						{
-							if(!empty($arrObjCommandeSousItemSession))
-							{
-								print("<h2>" . $objTexte->stpi_getArrTxt("forgiftlist") . $objBdd->stpi_trsBddToHTML($objRegistre->stpi_getStrRegistreCode()) . "</h2>\n");
-								
-								$strArrSousItem = "0";
-								
-								print("<table width=\"100%\" style=\"padding: 10px;\" >\n");
-								print("<tr>\n");
-								print("<td style=\"text-align: left;\" >\n");
-								print("<h3 style=\"padding: 0px;\" >\n");
-								print($objCommandeSousItem->stpi_getObjTexte()->stpi_getArrTxt("desc"));
-								print("</h3>\n");
-								print("</td>\n");
-								print("<td style=\"text-align: left;\" >\n");
-								print("<h3 style=\"padding: 0px;\" >\n");
-								print($objCommande->stpi_getObjTexte()->stpi_getArrTxt("quantityprice"));
-								print("</h3>\n");
-								print("</td>\n");
-								print("<td style=\"text-align: right;\" >\n");
-								print("<h3 style=\"padding: 0px; text-align: right;\" >\n");
-								print($objCommande->stpi_getObjTexte()->stpi_getArrTxt("total"));
-								print("</h3>\n");
-								print("</td>\n");
-								print("<td>\n");
-								print("&nbsp;");
-								print("</td>\n");
-								print("</tr>\n");
-								
-								$arrObjCommandeSousItem = array();
-								
-								foreach ($arrObjCommandeSousItemSession as $objCommandeSousItemSession)
-								{
-									if ($objSousItem->stpi_setNbID($objCommandeSousItemSession->stpi_getNbSousItemID()))
-									{
-										$objCommandeSousItemNew = new clscommandesousitem();
-										$objCommandeSousItemNew->stpi_setNbSousItemID($objSousItem->stpi_getNbID());
-										$objCommandeSousItemNew->stpi_setStrItemCode($objSousItem->stpi_getStrItemCode);
-										if ($objPrix->stpi_setNbID($objSousItem->stpi_getNbID(), 2))
-										{
-											$objCommandeSousItemNew->stpi_setNbPrix($objPrix->stpi_getNbPrix());	
-										}
-										$objCommandeSousItemNew->stpi_setNbQte($objCommandeSousItemSession->stpi_getNbQte());
-										if ($objItem->stpi_setNbID($objSousItem->stpi_getNbItemID()))
-										{
-											$objCommandeSousItemNew->stpi_setStrSousItemDesc($objItem->stpi_getStrSousItemDesc());
-										}
-										$arrObjCommandeSousItem[$objSousItem->stpi_getNbID()] = $objCommandeSousItemNew;
-									}
-								}
-								
-								$objCommande->stpi_setArrObjCommandeSousItem($arrObjCommandeSousItem);
-							
-								foreach ($arrObjCommandeSousItem as $objCommandeSousItem)
-								{
-									$strArrSousItem .= ", " . $objBdd->stpi_trsBddToHTML($objCommandeSousItem->stpi_getNbSousItemID());
-									
-									print("<tr>\n");
-									print("<td style=\"text-align: left;\" >\n");
-									$strItemCode = $objCommandeSousItem->stpi_getStrItemCode();
-									if (empty($strItemCode))
-									{
-										print($objBdd->stpi_trsBddToHTML($objCommandeSousItem->stpi_getStrSousItemDesc()));
-									}
-									else
-									{
-										print($objBdd->stpi_trsBddToHTML($strItemCode) .  " - " . $objBdd->stpi_trsBddToHTML($objCommandeSousItem->stpi_getStrSousItemDesc()));
-									}
-									print("</td>\n");
-									print("<td style=\"text-align: left;\" >\n");
-									print("<input type=\"text\" maxlength=\"3\" size=\"2\" id=\"nbQuantityRegistre" . $objBdd->stpi_trsBddToHTML($objCommandeSousItem->stpi_getNbSousItemID()) . "\" value=\"" . $objBdd->stpi_trsBddToHTML($objCommandeSousItem->stpi_getNbQte()) . "\" /> X ");
-									print($objBdd->stpi_trsBddToHTML($objBody->stpi_trsNbToPrix($objCommandeSousItem->stpi_getNbPrix())) . "$");
-									print("</td>\n");
-									print("<td style=\"text-align: right;\" >\n");
-									print($objBdd->stpi_trsBddToHTML($objBody->stpi_trsNbToPrix($objCommandeSousItem->stpi_getNbQte() * $objCommandeSousItem->stpi_getNbPrix())) . "$");
-									print("</td>\n");
-									print("<td style=\"text-align: right;\" >\n");
-									print("<input type=\"button\" id=\"stpi_delSousItemFromCommandeRegistre" . $objBdd->stpi_trsBddToHTML($objCommandeSousItem->stpi_getNbSousItemID()). "\" onclick=\"stpi_delSousItemFromCommandeRegistre(" . $objBdd->stpi_trsBddToHTML($objCommandeSousItem->stpi_getNbSousItemID()) . ")\" value=\"" . $objCommande->stpi_getObjTexte()->stpi_getArrTxt("delete") . "\" />\n");
-									print("</td>\n");
-									print("</tr>\n");
-								}
-								
-								print("<tr>\n");
-								print("<td colspan=\"2\" style=\"text-align: right;\" >\n");
-								print($objCommande->stpi_getObjTexte()->stpi_getArrTxt("soustotal"));
-								print("</td>\n");
-								print("<td style=\"text-align: right;\" >\n");
-								print($objBdd->stpi_trsBddToHTML($objBody->stpi_trsNbToPrix($objCommande->stpi_getNbSousTotalFromArrObjCommandeSousItem()) . "$"));
-								print("</td>\n");
-								print("<td>\n");
-								print("&nbsp;");
-								print("</td>\n");
-								print("</tr>\n");
-								
-								$nbPrixRabais = $objCommande->stpi_getNbPrixRabaisFromArrObjCommandeSousItem();
-										
-								if (!empty($nbPrixRabais))
-								{
-									print("<tr>\n");
-									print("<td colspan=\"2\" style=\"text-align: right;\" >\n");
-									print($objCommande->stpi_getObjTexte()->stpi_getArrTxt("prixrabais"));
-									print("</td>\n");
-									print("<td style=\"text-align: right;\" >\n");
-									print($objBdd->stpi_trsBddToHTML($objBody->stpi_trsNbToPrix($nbPrixRabais)) . "$");
-									print("</td>\n");
-									print("<td>\n");
-									print("&nbsp;");
-									print("</td>\n");
-									print("</tr>\n");
-								}
-								
-								print("</table>\n");
-								
-								print("<p><a href=\"shopregistre.php?l=" . LG . "&amp;strRegistreCode=" . $objBdd->stpi_trsBddToHTML($objRegistre->stpi_getStrRegistreCode()) . "\" >" . $objTexte->stpi_getArrTxt("returntogistlist") . "</a></p>\n");								
-								
-								print("<div style=\"padding: 0px 10px; margin: 0px; text-align: right;\" >\n");
-								print("<span id=\"stpi_messageregistre\" ></span>\n");
-								print("<br/>\n");
-								print("<input type=\"button\" id=\"stpi_editSousItemFromCommandeRegistre\" onclick=\"stpi_editSousItemFromCommandeRegistre(Array(" . $strArrSousItem . "))\" value=\"" . $objTexte->stpi_getArrTxt("updatecart") . "\" />\n");
-								print("<br/>\n");
-								$boolLogged = true;
-								if (isset($_SESSION["stpiObjUser"]))
-								{
-									if ($objUser = $objUser->stpi_getObjUserFromSession())
-									{
-										if ($objUser->stpi_getNbTypeUserID() == 2)
-										{
-											print("<input type=\"button\" id=\"buttoncontinue\" onclick=\"window.location = './checkoutregistre2.php?l=" . LG . "';\" value=\"" . $objTexte->stpi_getArrTxt("continue") . "\" />\n");
-										}
-										else
-										{
-											$boolLogged = false;
-										}
-									}
-									else
-									{
-										$boolLogged = false;	
-									}
-								}
-								else
-								{
-									$boolLogged = false;
-								}
-								if (!$boolLogged)
-								{
-									print("<input type=\"button\" id=\"buttonlogincontinue\" onclick=\"window.location = './login.php?redirect=checkoutregistre2&amp;l=" . LG . "';\" value=\"" . $objTexte->stpi_getArrTxt("buttonlogincontinue") . "\" />\n");
-									print("<br/>\n");
-									print("<input type=\"button\" id=\"buttonnologincontinue\" onclick=\"window.location = './checkoutregistre2.php?l=" . LG . "';\" value=\"" . $objTexte->stpi_getArrTxt("buttonnologincontinue") . "\" />\n");
-								}			
-								print("</div><br/>\n");
-				
-							}
-							else
-							{
-								print("<span style=\"color:#FF0000;\">" . $objTexte->stpi_getArrErrTxt("emptycart") . "</span><br/>\n");
-							}
-						}
-						else
-						{
-							print("<span style=\"color:#FF0000;\">" . $objTexte->stpi_getArrErrTxt("emptycart") . "</span><br/>\n");
-						}
-					}
+					print("<span style=\"color:#FF0000;\">" . $objTexte->stpi_getArrErrTxt("emptycart") . "</span><br/>\n");
 				}
 			}
-			if (!isset($_SESSION["stpiObjCommandeSession"]) && !isset($_SESSION["stpiObjCommandeRegistreSession"]))
-			{
-				print("<span style=\"color:#FF0000;\">" . $objTexte->stpi_getArrErrTxt("emptycart") . "</span><br/>\n");
-			}
-			
-		?>
-		
-		</div>
-		
-		<div class="doubleclear"></div>
-	</div>
-	
-	<div id="bottommenu">
-		<?php
-			$objMenu->stpi_affPublicMenu();
-		?>
-	</div>
-	
-	<div id="footer">
-		<?php
-			$objFooter->stpi_affPublicFooter();
-		?>
-	</div>
-	
-	</body>
+		}
+	}
+	if (!isset($_SESSION["stpiObjCommandeSession"]) && !isset($_SESSION["stpiObjCommandeRegistreSession"]))
+	{
+		print("<span style=\"color:#FF0000;\">" . $objTexte->stpi_getArrErrTxt("emptycart") . "</span><br/>\n");
+	}
+	// <!-- MainContentEnd -->
 
-</html>
+	$objFooter->stpi_affFooter();
+?>

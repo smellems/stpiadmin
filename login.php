@@ -31,209 +31,150 @@
 	$objCaptcha = new clscaptcha();
 	$objBody = new clsbody();
 	$objUser = new clsuser();
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-	<?php
-		$objHead->stpi_affPublicHead();
-	?>
-	</head>
-	<body>
-	
-	<div id="header">
-		<div id="menulang">
-			<?php
-				$objMenu->stpi_affPublicMenuLang();
-			?>
-		</div>		
-		<div id="loginurl">
-			<?php
-				$objLock->stpi_affUrl();
-			?>
-		</div>		
-		<div id="cart"><?php $objBody->stpi_affCartUrl();  ?></div>
-		
-		<div id="welcomemsg">
-			<?php
-				print($objTexte->stpi_getArrTxt("welcome"));
-			?>
-		</div>				
-	</div>
-	
-	<div id="topmenu">
-		<?php
-			$objMenu->stpi_affPublicMenu();
-		?>		
-	</div>
-	
-	<div id="container">		
-		<div id="fullcontent">
-		<?php
-			if (isset($_GET["redirect"]))
-			{
-				$strRedirect = $_GET["redirect"];
-			}
-			else
-			{
-				$strRedirect = "clientpublic";
-			}
-		
-			$objMotd->stpi_affPublic();
-			
-			if ($_GET["op"] == "login")
-			{
-				$gonogo = true;
-					
-				if (!$_POST["strCaptcha"])
-				{
-					$gonogo = false;
-					print("<span style=\"color:#FF0000;\">" . $objTexte->stpi_getArrErrTxt("pascaptcha") . "</span><br/>\n");
-				}
-				else if (!$objCaptcha->stpi_chkCaptcha($_POST["strCaptcha"]))
-				{
-					$gonogo = false;
-					print("<span style=\"color:#FF0000;\">" . $objTexte->stpi_getArrErrTxt("captchainvalide") . "</span><br/>\n");
-				}
-						
-				if ($gonogo)
-				{
-					if ($nbClientID = $objClient->stpi_chkLogin($_POST["strCourriel"], $_POST["strPass"]))
-					{
-						$objUser->stpi_setNbID($nbClientID);
-						$objUser->stpi_setNbTypeUserID(2);
-						$objUser->stpi_setNbIP();
-						$objUser->stpi_setObjUserToSession();
-						
-						print("<script type=\"text/javascript\" >\n");
-						print("<!--\n");
-						print("window.location = \"" . $strRedirect . ".php?l=" . LG . "\";\n");
-						print("-->\n");
-						print("</script>\n");										
-					}
-					else
-					{
-						print("<span style=\"color:#FF0000;\">" . $objTexte->stpi_getArrErrTxt("failedlogin") . "</span><br/>\n");
-					}
-				}
-			}
-			
-			print("<form name=\"login\" action=\"./login.php?l=" . LG . "&amp;redirect=" . $objBody->stpi_trsInputToHTML($strRedirect) . "&amp;op=login\" method=\"post\">\n");				
-		?>
-		
-		<table width="100%">
-		<tr>
-			<td width="50%" style="text-align: left; vertical-align: top;">
-				<h2>
-					<?php
-						print($objTexte->stpi_getArrTxt("welcome"));
-					?>
-				</h2>
-				<table width="100%">
-				<tr>
-					<td style="text-align: right; vertical-align: top;" >
-						<?php
-							print($objTexte->stpi_getArrTxt("email"));
-						?>
-					</td>
-					<td style="text-align: left; vertical-align: top;">
-						<input type="text" maxlength="255" size="20" id="strCourriel" name="strCourriel" value="" />
-					</td>
-				</tr>
-				<tr>
-					<td style="text-align: right; vertical-align: top;" >
-						<?php
-							print($objTexte->stpi_getArrTxt("password"));
-						?>
-					</td>
-					<td style="text-align: left; vertical-align: top;">
-						<input type="password" maxlength="50" size="20" id="strPass" name="strPass" value="" />
-						<br/>
-						<?php
-							print("<a href=\"./forgotpass.php?l=" . LG . "\" >" . $objTexte->stpi_getArrTxt("forgotpassword") . "</a>\n");
-						?>
-					</td>
-				</tr>
-				<tr>
-					<td style="text-align: right; vertical-align: top;" >
-						<?php
-							print($objTexte->stpi_getArrTxt("captcha") . "<br/>\n");
-						?>
-					</td>
-					<td style="text-align: left; vertical-align: top;">
-						<img style="border: 2px solid black;" src="./stpiadmin/captcha.php" alt="Captcha"/>
-						<br/>
-						<input type="text" size="20" id="strCaptcha" name="strCaptcha" value="" />
-					</td>
-				</tr>
-				</table>
-			</td>
-			<td width="50%" style="text-align: left; vertical-align: top;">
-				<h2>
-					<?php
-						print($objTexte->stpi_getArrTxt("whyregister"));
-					?>
-				</h2>
-				<?php
-					print("<ul>\n");
-					print("<li>\n");
-					print($objTexte->stpi_getArrTxt("li1"));
-					print("</li>\n");
-					print("<li>\n");
-					print($objTexte->stpi_getArrTxt("li2"));
-					print("</li>\n");
-					print("<li>\n");
-					print($objTexte->stpi_getArrTxt("li3"));
-					print("</li>\n");
-					print("<li>\n");
-					print($objTexte->stpi_getArrTxt("li4"));
-					print("</li>\n");
-					print("</ul>\n");
-				?>
-			</td>
-		</tr>
-		<tr>
-			<td width="50%" style="text-align: right; vertical-align: top;">
-				<?php
-					print("<input type=\"submit\" value=\"" . $objTexte->stpi_getArrTxt("welcome") . "\"/>\n");
-				?>
-			</td>
-			<td width="50%" style="text-align: right; vertical-align: top;">
-				<?php
-					print("<input onclick=\"window.location='register.php?redirect=" . $objBody->stpi_trsInputToHTML($strRedirect) . "&amp;l=" . LG . "'\" type=\"button\" value=\"" . $objTexte->stpi_getArrTxt("register") . "\"/>\n");
-				?>
-			</td>
-		</tr>
-		</table>
-		
-		</form>
-		
-		<br/>
-		<br/>
-		
-		</div>
-		
-		<div class="doubleclear"></div>
-	</div>
-	
-	<div id="bottommenu">
-		<?php
-			$objMenu->stpi_affPublicMenu();
-		?>
-	</div>
-	
-	<div id="footer">
-		<?php
-			$objFooter->stpi_affPublicFooter();
-		?>
-	</div>
-	
-	<script type="text/javascript" >
-	<!--
-		document.getElementById("strCourriel").focus();
-	-->
-	</script>
-	
-	</body>
+	// Début page
+	$objHead->stpi_affPublicHead();
+	$objBody->stpi_affBodyHeader($objTexte->stpi_getArrTxt("welcome"));
 
-</html>
+	// <!-- MainContentStart -->
+	$objMotd->stpi_affPublic();
+
+		if (isset($_GET["redirect"]))
+		{
+			$strRedirect = $_GET["redirect"];
+		}
+		else
+		{
+			$strRedirect = "clientpublic";
+		}
+		
+		if ($_GET["op"] == "login")
+		{
+			$gonogo = true;
+				
+			if (!$_POST["strCaptcha"])
+			{
+				$gonogo = false;
+				print("<span style=\"color:#FF0000;\">" . $objTexte->stpi_getArrErrTxt("pascaptcha") . "</span><br/>\n");
+			}
+			else if (!$objCaptcha->stpi_chkCaptcha($_POST["strCaptcha"]))
+			{
+				$gonogo = false;
+				print("<span style=\"color:#FF0000;\">" . $objTexte->stpi_getArrErrTxt("captchainvalide") . "</span><br/>\n");
+			}
+					
+			if ($gonogo)
+			{
+				if ($nbClientID = $objClient->stpi_chkLogin($_POST["strCourriel"], $_POST["strPass"]))
+				{
+					$objUser->stpi_setNbID($nbClientID);
+					$objUser->stpi_setNbTypeUserID(2);
+					$objUser->stpi_setNbIP();
+					$objUser->stpi_setObjUserToSession();
+					
+					print("<script type=\"text/javascript\" >\n");
+					print("<!--\n");
+					print("window.location = \"" . $strRedirect . ".php?l=" . LG . "\";\n");
+					print("-->\n");
+					print("</script>\n");										
+				}
+				else
+				{
+					print("<span style=\"color:#FF0000;\">" . $objTexte->stpi_getArrErrTxt("failedlogin") . "</span><br/>\n");
+				}
+			}
+		}
+		
+		print("<form name=\"login\" action=\"./login.php?l=" . LG . "&amp;redirect=" . $objBody->stpi_trsInputToHTML($strRedirect) . "&amp;op=login\" method=\"post\">\n");				
+	?>
+	
+	<table>
+	<tr>
+		<td width="50%" style="text-align: left; vertical-align: top;">
+			<h2>
+				<?php
+					print($objTexte->stpi_getArrTxt("welcome"));
+				?>
+			</h2>
+			<table width="100%">
+			<tr>
+				<td style="text-align: right; vertical-align: top;" >
+					<?php
+						print($objTexte->stpi_getArrTxt("email"));
+					?>
+				</td>
+				<td style="text-align: left; vertical-align: top;">
+					<input type="text" maxlength="255" size="20" id="strCourriel" name="strCourriel" value="" />
+				</td>
+			</tr>
+			<tr>
+				<td style="text-align: right; vertical-align: top;" >
+					<?php
+						print($objTexte->stpi_getArrTxt("password"));
+					?>
+				</td>
+				<td style="text-align: left; vertical-align: top;">
+					<input type="password" maxlength="50" size="20" id="strPass" name="strPass" value="" />
+					<br/>
+					<?php
+						print("<a href=\"./forgotpass.php?l=" . LG . "\" >" . $objTexte->stpi_getArrTxt("forgotpassword") . "</a>\n");
+					?>
+				</td>
+			</tr>
+			<tr>
+				<td style="text-align: right; vertical-align: top;" >
+					<?php
+						print($objTexte->stpi_getArrTxt("captcha") . "<br/>\n");
+					?>
+				</td>
+				<td style="text-align: left; vertical-align: top;">
+					<img style="border: 2px solid black;" src="./stpiadmin/captcha.php" alt="Captcha"/>
+					<br/>
+					<input type="text" size="20" id="strCaptcha" name="strCaptcha" value="" />
+				</td>
+			</tr>
+			</table>
+		</td>
+		<td width="50%" style="text-align: left; vertical-align: top;">
+			<h2>
+				<?php
+					print($objTexte->stpi_getArrTxt("whyregister"));
+				?>
+			</h2>
+			<?php
+				print("<ul>\n");
+				print("<li>\n");
+				print($objTexte->stpi_getArrTxt("li1"));
+				print("</li>\n");
+				print("<li>\n");
+				print($objTexte->stpi_getArrTxt("li2"));
+				print("</li>\n");
+				print("<li>\n");
+				print($objTexte->stpi_getArrTxt("li3"));
+				print("</li>\n");
+				print("<li>\n");
+				print($objTexte->stpi_getArrTxt("li4"));
+				print("</li>\n");
+				print("</ul>\n");
+			?>
+		</td>
+	</tr>
+	<tr>
+		<td width="50%" style="text-align: right; vertical-align: top;">
+			<?php
+				print("<input type=\"submit\" value=\"" . $objTexte->stpi_getArrTxt("welcome") . "\"/>\n");
+			?>
+		</td>
+		<td width="50%" style="text-align: right; vertical-align: top;">
+			<?php
+				print("<input onclick=\"window.location='register.php?redirect=" . $objBody->stpi_trsInputToHTML($strRedirect) . "&amp;l=" . LG . "'\" type=\"button\" value=\"" . $objTexte->stpi_getArrTxt("register") . "\"/>\n");
+			?>
+		</td>
+	</tr>
+	</table>
+	
+	</form>
+<?php
+// <!-- MainContentEnd -->
+
+	$objFooter->stpi_affFooter();
+?>

@@ -37,12 +37,56 @@ class clsfooter
 	{
 		$strDate = date("Y");	
 		
-		print("<ul>\n");
-				
-		print("<li><a target=\"_blank\" href=\"http://jigsaw.w3.org/css-validator/check/referer\" >" . $this->objTexte->stpi_getArrTxt("css") . "</a></li>\n");
-		print("<li><a target=\"_blank\" href=\"http://validator.w3.org/check?uri=referer\" >" . $this->objTexte->stpi_getArrTxt("xhtml") . "</a></li>\n");
-		print("<li>" . $this->objTexte->stpi_getArrTxt("droit") . " GPLv3 &copy; " . $strDate . " " . STR_NOM_ENT . " " . STR_NUM_VER . "</li>\n");		
-		print("</ul>\n");
+		print("<p class=\"align-center\">\n");
+		print("<a target=\"_blank\" href=\"http://jigsaw.w3.org/css-validator/check/referer\" >" . $this->objTexte->stpi_getArrTxt("css") . "</a>\n");
+		print(" - <a target=\"_blank\" href=\"http://validator.w3.org/check?uri=referer\" >" . $this->objTexte->stpi_getArrTxt("xhtml") . "</a>\n");
+		print(" - " . $this->objTexte->stpi_getArrTxt("droit") . " GPLv3 &copy; " . $strDate . " " . STR_NOM_ENT . " " . STR_NUM_VER);
+		print("</p>\n");
+	}
+
+	public function stpi_affFooter()
+	{
+		print("</div></div>");
+		print("</div></div>");
+
+		print("<div id=\"wb-foot\"><div id=\"wb-foot-in\"><footer><h2 id=\"wb-nav\">Pied de page</h2>");
+		print("<!-- FooterStart -->");
+		print("<nav role=\"navigation\"><div id=\"base-sft\"><h3>Pied de page du site</h3><div id=\"base-sft-in\">");
+		print("<section><div class=\"span-2\"><h4 class=\"base-col-head\"><a href=\"#\">À propos de nous</a></h4>");
+		print("<ul>");
+		print("<li><a href=\"#\">Notre mandat</a></li>");
+		print("<li><a href=\"#\">Notre histoire</a></li>");
+		print("</ul>");
+		print("</div></section>");
+		print("<section><div class=\"span-2\"><h4 class=\"base-col-head\"><a href=\"#\">Nouvelles</a></h4>");
+		print("<ul>");
+		print("<li><a href=\"#\">Communiqués</a></li>");
+		print("<li><a href=\"#\">Avix aux médias</a></li>");
+		print("<li><a href=\"#\">Multimédia</a></li>");
+		print("</ul>");
+		print("</div></section>");
+
+		print("</div></div></nav>");
+
+		print("<section><div id=\"base-fullft\"><h3>Secteur de pied de page de plein-largeur</h3>");
+		print("<p>&nbsp</p>");
+		print("<div id=\"base-fullft-in\">");
+
+		    $this->stpi_affPublicFooter();
+
+		print("</div>");
+		print("</div></section>");
+		print("<!-- FooterEnd -->");
+		print("</footer>");
+		print("</div></div></div>");
+
+		print("<!-- ScriptsStart -->");
+		print("<script src=\"stpiadmin/includes/wet-boew/theme-base/js/theme-min.js\"></script>");
+		print("<script src=\"stpiadmin/includes/wet-boew/js/settings.js\"></script>");
+		print("<script src=\"stpiadmin/includes/wet-boew/js/pe-ap-min.js\"></script>");
+		print("<!-- ScriptsEnd -->");
+		print("</body>");
+		print("</html>");
 	}
 }
 

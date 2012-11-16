@@ -19,8 +19,7 @@
 	$objMotd = new clsmotd();
 	$objTexte = new clstexte("./texte/home");
 	$objBody = new clsbody();
-	$objHead = new clshead($objTexte->stpi_getArrTxt("headtitre"), $objTexte->stpi_getArrTxt("keywords"), $objTexte->stpi_getArrTxt("description"));
-	$objJavaScript = new clsjavascript();
+  $objJavaScript = new clsjavascript();
 	$objMenu = new clsmenu($strPage);
 	$objFooter = new clsfooter();
 	$objBdd = clsBdd::singleton();
@@ -58,83 +57,33 @@
 			}
 		}
 	}
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-	<?php
-		$objPage->stpi_setNbID(4);
-		$objPage->stpi_setObjPageLgFromBdd();
-		$objPageLg = $objPage->stpi_getObjPageLg();
-		$objHead = new clshead(STR_NOM_ENT . " - " . $objBdd->stpi_trsBddToHTML($objPageLg->stpi_getStrTitre()), $objBdd->stpi_trsBddToHTML($objPageLg->stpi_getStrKeywords()), $objBdd->stpi_trsBddToHTML($objPageLg->stpi_getStrDesc()));
-		$objHead->stpi_affPublicHead();
-	?>
-	</head>
-	<body>
-	
-	<div id="header">
-		<div id="menulang">
-			<?php
-				$objMenu->stpi_affPublicMenuLang();
-			?>
-		</div>		
-		<div id="loginurl">
-			<?php
-				$objLock->stpi_affUrl();
-			?>
-		</div>		
-		<div id="cart"><?php $objBody->stpi_affCartUrl();  ?></div>
-		
-		<div id="welcomemsg">
-			<?php
-				print($objTexte->stpi_getArrTxt("welcome"));
-			?>
-		</div>				
-	</div>
-	
-	<div id="topmenu">
-		<?php
-			$objMenu->stpi_affPublicMenu();
-		?>		
-	</div>
-	
-	<div id="container">
-		<div id="fullcontent">
-			<?php
-				print("<div class=\"news\">\n");
-				print("<h3>" . $objTexte->stpi_getArrTxt("coderegistre") . "</h3>\n");
-				print("<div style=\"margin: 0px; padding: 0px 10px; text-align: center;\" >\n");
-				print($objTexte->stpi_getArrTxt("entrercode") . " :<br/>\n");
-				print("<input type=\"text\" maxlength=\"10\" size=\"10\" id=\"strRegistreCode\" value=\"\" /><br/>\n");
-				print("<input type=\"button\" onclick=\"window.location='./shopregistre.php?l=" . LG . "&amp;strRegistreCode=' + document.getElementById('strRegistreCode').value\" value=\"" . $objTexte->stpi_getArrTxt("shop") . "\"/><br/>\n");
-				print("</div><br/>\n");
 
-				$objNews->stpi_affPublic(2);
-							
-				print("</div>\n");
+	$objPage->stpi_setNbID(4);
+	$objPage->stpi_setObjPageLgFromBdd();
+	$objPageLg = $objPage->stpi_getObjPageLg();
+	$objHead = new clshead(STR_NOM_ENT . " - " . $objBdd->stpi_trsBddToHTML($objPageLg->stpi_getStrTitre()), $objBdd->stpi_trsBddToHTML($objPageLg->stpi_getStrKeywords()), $objBdd->stpi_trsBddToHTML($objPageLg->stpi_getStrDesc()));
+	// Début page
+	$objHead->stpi_affPublicHead();
+	$objBody->stpi_affBodyHeader($objTexte->stpi_getArrTxt("welcome"));
+
+	// <!-- MainContentStart -->
+	$objMotd->stpi_affPublic();
+	print("<div class=\"news\">\n");
+	print("<h3>" . $objTexte->stpi_getArrTxt("coderegistre") . "</h3>\n");
+	print("<div style=\"margin: 0px; padding: 0px 10px; text-align: center;\" >\n");
+	print($objTexte->stpi_getArrTxt("entrercode") . " :<br/>\n");
+	print("<input type=\"text\" maxlength=\"10\" size=\"10\" id=\"strRegistreCode\" value=\"\" /><br/>\n");
+	print("<input type=\"button\" onclick=\"window.location='./shopregistre.php?l=" . LG . "&amp;strRegistreCode=' + document.getElementById('strRegistreCode').value\" value=\"" . $objTexte->stpi_getArrTxt("shop") . "\"/><br/>\n");
+	print("</div><br/>\n");
+
+	$objNews->stpi_affPublic(2);
 				
-				$objBanniere->stpi_affHomePublic();
-						
-				$objMotd->stpi_affPublic();
+	print("</div>\n");
+	
+	$objBanniere->stpi_affHomePublic();
+	
+	print($objBdd->stpi_trsBddHtmlToHTML($objPageLg->stpi_getStrContent()));
+	// <!-- MainContentEnd -->
 
-				print($objBdd->stpi_trsBddHtmlToHTML($objPageLg->stpi_getStrContent()));
-			?>
-		</div>
-		<div class="doubleclear"></div>
-	</div>
-	
-	<div id="bottommenu">
-		<?php
-			$objMenu->stpi_affPublicMenu();
-		?>
-	</div>
-	
-	<div id="footer">
-		<?php
-			$objFooter->stpi_affPublicFooter();
-		?>
-	</div>
-	
-	</body>
-
-</html>
+	$objFooter->stpi_affFooter();
+?>

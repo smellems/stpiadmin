@@ -1,0 +1,5 @@
+/*!
+ * Translated default messages for the jQuery validation plugin.
+ * Locale: BG (Bulgarian; българ�?ки език)
+ */
+(function(a){a.extend(a.validator.messages,{required:"Полето е задължително.",remote:"Мол�?, въведете правилната �?тойно�?т.",email:"Мол�?, въведете валиден email.",url:"Мол�?, въведете валидно URL.",date:"Мол�?, въведете валидна дата.",dateISO:"Мол�?, въведете валидна дата (ISO).",number:"Мол�?, въведете валиден номер.",digits:"Мол�?, въведете �?амо цифри",creditcard:"Мол�?, въведете валиден номер на кредитна карта.",equalTo:"Мол�?, въведете �?ъщата �?тойно�?т отново.",accept:"Мол�?, въведете �?тойно�?т �? валидно разширение.",maxlength:a.validator.format("Мол�?, въведете повече от {0} �?имвола."),minlength:a.validator.format("Мол�?, въведете поне {0} �?имвола."),rangelength:a.validator.format("Мол�?, въведете �?тойно�?т �? дължина между {0} и {1} �?имвола."),range:a.validator.format("Мол�?, въведете �?тойно�?т между {0} и {1}."),max:a.validator.format("Мол�?, въведете �?тойно�?т по-малка или равна на {0}."),min:a.validator.format("Мол�?, въведете �?тойно�?т по-гол�?ма или равна на {0}.")})}(jQuery));

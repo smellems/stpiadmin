@@ -32,124 +32,74 @@
 	$objItem =& $objRegistre->stpi_getObjRegistreSousItem()->stpi_getObjItem();
 	$objSousItem =& $objItem->stpi_getObjSousItem();
 	$objCountry =& $objClient->stpi_getObjCountry();
-	
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-	<?php
-		$objHead->stpi_affPublicHead();
-	?>
-	</head>
-	<body>
-	
-	<div id="header">
-		<div id="menulang">
-			<?php
-				$objMenu->stpi_affPublicMenuLang();
-			?>
-		</div>		
-		<div id="loginurl">
-			<?php
-				$objLock->stpi_affUrl();
-			?>
-		</div>		
-		<div id="cart"><?php $objBody->stpi_affCartUrl();  ?></div>
-		
-		<div id="welcomemsg">
-			<?php
-				print($objTexte->stpi_getArrTxt("welcome"));
-			?>
-		</div>				
-	</div>
-	
-	<div id="topmenu">
-		<?php
-			$objMenu->stpi_affPublicMenu();
-		?>		
-	</div>
-	
-	<div id="container">		
-		<div id="fullcontent">
-		<?php
-			$objJavaScript->stpi_affArrLang();
-			$objJavaScript->stpi_affNoAjax();
-			$objJavaScript->stpi_affCreateXmlHttp();
-			$objJavaScript->stpi_affNoJavaScript();
-			
-			$objRegistre->stpi_affJsAddPublic();
-			$objRegistre->stpi_affJsEditPublic();
-			$objRegistreSousItem->stpi_affJsDelSousItemFromRegistre();
-			$objRegistre->stpi_affJsSendRegistreInvitationPublic();
-			
-			$objMotd->stpi_affPublic();
+	// Début page
+	$objHead->stpi_affPublicHead();
+	$objBody->stpi_affBodyHeader($objTexte->stpi_getArrTxt("welcome"));
 
-			$objUser = $objUser->stpi_getObjUserFromSession();
-			
-			if ($objUser->stpi_getNbTypeUserID() == 2)
+	// <!-- MainContentStart -->
+	$objMotd->stpi_affPublic();
+
+	$objJavaScript->stpi_affArrLang();
+	$objJavaScript->stpi_affNoAjax();
+	$objJavaScript->stpi_affCreateXmlHttp();
+	$objJavaScript->stpi_affNoJavaScript();
+	
+	$objRegistre->stpi_affJsAddPublic();
+	$objRegistre->stpi_affJsEditPublic();
+	$objRegistreSousItem->stpi_affJsDelSousItemFromRegistre();
+	$objRegistre->stpi_affJsSendRegistreInvitationPublic();
+	
+	$objMotd->stpi_affPublic();
+
+	$objUser = $objUser->stpi_getObjUserFromSession();
+	
+	if ($objUser->stpi_getNbTypeUserID() == 2)
+	{
+		if ($objClient->stpi_chkNbID($objUser->stpi_getNbID()))
+		{					
+			print("<table>\n");
+			print("<tr>\n");
+			print("<td width=\"70%\" style=\"text-align: left; vertical-align: top;\">\n");
+			if ($_GET["nbRegistreID"])
 			{
-				if ($objClient->stpi_chkNbID($objUser->stpi_getNbID()))
-				{					
-					print("<table width=\"100%\">\n");
-					print("<tr>\n");
-					print("<td width=\"70%\" style=\"text-align: left; vertical-align: top;\">\n");
-					if ($_GET["nbRegistreID"])
+				if ($objRegistre->stpi_setNbID($_GET["nbRegistreID"]))
+				{
+					if ($objUser->stpi_getNbID() == $objRegistre->stpi_getNbClientID())
 					{
-						if ($objRegistre->stpi_setNbID($_GET["nbRegistreID"]))
-						{
-							if ($objUser->stpi_getNbID() == $objRegistre->stpi_getNbClientID())
-							{
-								print("<h2>\n");
-								print($objTexte->stpi_getArrTxt("editregistre"));
-								print("</h2>\n");
-								$objRegistre->stpi_affEditPublic();
-								print("<p><a href=\"./shopregistre.php?l=" . LG . "&amp;strRegistreCode=" . $objBdd->stpi_trsBddToHTML($objRegistre->stpi_getStrRegistreCode()) . "\">" . $objTexte->stpi_getArrTxt("visionnerregistre") . "</a></p><br/>\n");
-								$objRegistre->stpi_affSendRegistreInvitationPublic();
-							}
-							else
-							{
-								print("<span style=\"color:#FF0000;\">" . $objTexte->stpi_getArrErrTxt("notyours") . "</span><br/>\n");
-							}
-						}
+						print("<h2>\n");
+						print($objTexte->stpi_getArrTxt("editregistre"));
+						print("</h2>\n");
+						$objRegistre->stpi_affEditPublic();
+						print("<p><a href=\"./shopregistre.php?l=" . LG . "&amp;strRegistreCode=" . $objBdd->stpi_trsBddToHTML($objRegistre->stpi_getStrRegistreCode()) . "\">" . $objTexte->stpi_getArrTxt("visionnerregistre") . "</a></p><br/>\n");
+						$objRegistre->stpi_affSendRegistreInvitationPublic();
 					}
 					else
 					{
-						print("<h2>\n");
-						print($objTexte->stpi_getArrTxt("addregistre"));
-						print("</h2>\n");
-						print("<p>" . $objTexte->stpi_getArrTxt("instruction1") . "</p>\n");
-						$objRegistre->stpi_affAddPublic();
+						print("<span style=\"color:#FF0000;\">" . $objTexte->stpi_getArrErrTxt("notyours") . "</span><br/>\n");
 					}
-					print("</td>\n");
-					print("<td width=\"30%\" style=\"text-align: left; vertical-align: top;\">\n");
-					print("<ul>\n");
-					print("<li>" . $objTexte->stpi_getArrTxt("instruction2") . "</li>\n");
-					print("<li>" . $objTexte->stpi_getArrTxt("instruction3") . "</li>\n");
-					print("<li>" . $objTexte->stpi_getArrTxt("instruction4") . "</li>\n");
-					print("</ul>\n");
-					print("</td>\n");
-					print("</tr>\n");
-					print("</table><br/><br/>\n");
 				}
 			}
-		?>
-		
-		</div>
-		<div class="doubleclear"></div>
-	</div>
-	
-	<div id="bottommenu">
-		<?php
-			$objMenu->stpi_affPublicMenu();
-		?>
-	</div>
-	
-	<div id="footer">
-		<?php
-			$objFooter->stpi_affPublicFooter();
-		?>
-	</div>
-	
-	</body>
+			else
+			{
+				print("<h2>\n");
+				print($objTexte->stpi_getArrTxt("addregistre"));
+				print("</h2>\n");
+				print("<p>" . $objTexte->stpi_getArrTxt("instruction1") . "</p>\n");
+				$objRegistre->stpi_affAddPublic();
+			}
+			print("</td>\n");
+			print("<td width=\"30%\" style=\"text-align: left; vertical-align: top;\">\n");
+			print("<ul>\n");
+			print("<li>" . $objTexte->stpi_getArrTxt("instruction2") . "</li>\n");
+			print("<li>" . $objTexte->stpi_getArrTxt("instruction3") . "</li>\n");
+			print("<li>" . $objTexte->stpi_getArrTxt("instruction4") . "</li>\n");
+			print("</ul>\n");
+			print("</td>\n");
+			print("</tr>\n");
+			print("</table><br/><br/>\n");
+		}
+	}
+	// <!-- MainContentEnd -->
 
-</html>
+	$objFooter->stpi_affFooter();
+?>

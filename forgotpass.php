@@ -31,171 +31,119 @@
 	$objClient = new clsclient();
 	$objEmail = new clsemail();
 	$objCryption = new clscryption();
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-	<?php
-		$objHead->stpi_affPublicHead();
-	?>
-	</head>
-	<body>
+	// Début page
+	$objHead->stpi_affPublicHead();
+	$objBody->stpi_affBodyHeader($objTexte->stpi_getArrTxt("welcome"));
+
+	// <!-- MainContentStart -->
+	$objMotd->stpi_affPublic();
+			
+	$gonogo = false;
 	
-	<div id="header">
-		<div id="menulang">
-			<?php
-				$objMenu->stpi_affPublicMenuLang();
-			?>
-		</div>		
-		<div id="loginurl">
-			<?php
-				$objLock->stpi_affUrl();
-			?>
-		</div>		
-		<div id="cart"><?php $objBody->stpi_affCartUrl();  ?></div>
+	if ($_GET["op"] == "send")
+	{
+		$gonogo = true;
 		
-		<div id="welcomemsg">
-			<?php
-				print($objTexte->stpi_getArrTxt("welcome"));
-			?>
-		</div>				
-	</div>
-	
-	<div id="topmenu">
-		<?php
-			$objMenu->stpi_affPublicMenu();
-		?>		
-	</div>
-	
-	<div id="container">		
-		<div id="fullcontent">
-		<?php
-			$objMotd->stpi_affPublic();
+		if ($objEmail->stpi_chkStrEmail($_POST["strCourriel"]))
+		{
+			$SQL = "SELECT nbClientID";
+			$SQL .= " FROM stpi_client_Client";
+			$SQL .= " WHERE strCourriel = '" . $objBdd->stpi_trsInputToBdd($_POST["strCourriel"]) . "'";
 			
-			$gonogo = false;
-			
-			if ($_GET["op"] == "send")
+			if ($result = $objBdd->stpi_select($SQL))
 			{
-				$gonogo = true;
-				
-				if ($objEmail->stpi_chkStrEmail($_POST["strCourriel"]))
+				if ($row = mysql_fetch_assoc($result))
 				{
-					$SQL = "SELECT nbClientID";
-					$SQL .= " FROM stpi_client_Client";
-					$SQL .= " WHERE strCourriel = '" . $objBdd->stpi_trsInputToBdd($_POST["strCourriel"]) . "'";
-					
-					if ($result = $objBdd->stpi_select($SQL))
-					{
-						if ($row = mysql_fetch_assoc($result))
-						{
-							$nbClientID = $row["nbClientID"];
-						}
-						else
-						{
-							$gonogo = false;
-						}
-						mysql_free_result($result);			
-					}	
-					else
-					{
-						print("<span style=\"color:#FF0000;\">" . $objTexte->stpi_getArrErrTxt("noaccount") . "</span><br/>\n");
-						$gonogo = false;			
-					}
+					$nbClientID = $row["nbClientID"];
 				}
 				else
 				{
 					$gonogo = false;
 				}
-				
-				if (!empty($_POST["strCaptcha"]))
-				{
-					if (!$objCaptcha->stpi_chkCaptcha($_POST["strCaptcha"]))
-					{
-						print("<span style=\"color:#FF0000;\">" . $objTexte->stpi_getArrErrTxt("captchainvalide") . "</span><br/>\n");
-						$gonogo = false;
-					}
-				}
-				else
-				{
-					print("<span style=\"color:#FF0000;\">" . $objTexte->stpi_getArrErrTxt("pascaptcha") . "</span><br/>\n");
-					$gonogo = false;
-				}
-											
-				if ($gonogo)
-				{
-					if ($objClient->stpi_setNbID($nbClientID))
-					{
-						$strPassword = $objCryption->stpi_selPasswordGenerator();
-						if ($objClient->stpi_setStrPassword($strPassword))
-						{
-							$objClient->stpi_update();
-						}							
-					}
-					$objEmail->stpi_setStrFromEmail(STR_EMAIL_FROM);
-					$objEmail->stpi_setStrEmail($_POST["strCourriel"]);
-					$objEmail->stpi_setStrSubject($objTexte->stpi_getArrTxt("emailsubject"));
-					$objEmail->stpi_setStrMessage("<p>" . $objTexte->stpi_getArrTxt("emailmessage") . " " . $strPassword . "<br/>" . $objTexte->stpi_getArrTxt("emailwarning") . "<br/>IP: " . $_SERVER["REMOTE_ADDR"] . "</p>\n");					
-					if ($objEmail->stpi_Send())
-					{
-						print("<span style=\"color:#008000;\">" .  $objTexte->stpi_getArrTxt("sended") . "</span><br/>\n");
-					}
-				}
+				mysql_free_result($result);			
+			}	
+			else
+			{
+				print("<span style=\"color:#FF0000;\">" . $objTexte->stpi_getArrErrTxt("noaccount") . "</span><br/>\n");
+				$gonogo = false;			
 			}
-						
-			
-			print("<form name=\"forgotpass\" action=\"./forgotpass.php?l=" . LG . "&amp;op=send\" method=\"post\">\n");
-			
-			print("<table>\n");
-			print("<tr>\n");
-			print("<td colspan=\"2\" style=\"text-align: left; vertical-align: top;\">\n");
-			print($objTexte->stpi_getArrTxt("instruction") . "\n");
-			print("</td>\n");
-			print("</tr>\n");
-			print("<tr>\n");			
-			print("<td style=\"text-align: right; vertical-align: top;\" >\n");
-			print($objTexte->stpi_getArrTxt("courriel"));
-			print("</td>\n");
-			print("<td style=\"text-align: left; vertical-align: top;\">\n");
-			print("<input type=\"text\" maxlength=\"200\" size=\"30\" name=\"strCourriel\" id=\"strCourriel\" value=\"\" />\n");
-			print("</td>\n");
-			print("</tr>\n");
-			print("<tr>\n");
-			print("<td style=\"text-align: right; vertical-align: top;\" >\n");
-			print($objTexte->stpi_getArrTxt("captcha") . "<br/>\n");
-			print("</td>\n");
-			print("<td style=\"text-align: left; vertical-align: top;\">\n");
-			print("<img style=\"border: 2px solid black;\" src=\"./stpiadmin/captcha.php\" alt=\"Captcha\"/>\n");
-			print("<br/>\n");
-			print("<input type=\"text\" size=\"20\" id=\"strCaptcha\" name=\"strCaptcha\" value=\"\" />\n");
-			print("</td>\n");
-			print("</tr>\n");
-			print("<tr>\n");
-			print("<td colspan=\"2\" style=\"text-align: right; vertical-align: top;\">\n");
-			print("<input type=\"submit\" value=\"" . $objTexte->stpi_getArrTxt("send") . "\"/>\n");
-			print("</td>");
-			print("</tr>\n");
-			print("</table>\n");
-
-			print("</form>\n");
-		?>
+		}
+		else
+		{
+			$gonogo = false;
+		}
 		
-		</div>
-		
-		<div class="doubleclear"></div>
-	</div>
+		if (!empty($_POST["strCaptcha"]))
+		{
+			if (!$objCaptcha->stpi_chkCaptcha($_POST["strCaptcha"]))
+			{
+				print("<span style=\"color:#FF0000;\">" . $objTexte->stpi_getArrErrTxt("captchainvalide") . "</span><br/>\n");
+				$gonogo = false;
+			}
+		}
+		else
+		{
+			print("<span style=\"color:#FF0000;\">" . $objTexte->stpi_getArrErrTxt("pascaptcha") . "</span><br/>\n");
+			$gonogo = false;
+		}
+									
+		if ($gonogo)
+		{
+			if ($objClient->stpi_setNbID($nbClientID))
+			{
+				$strPassword = $objCryption->stpi_selPasswordGenerator();
+				if ($objClient->stpi_setStrPassword($strPassword))
+				{
+					$objClient->stpi_update();
+				}							
+			}
+			$objEmail->stpi_setStrFromEmail(STR_EMAIL_FROM);
+			$objEmail->stpi_setStrEmail($_POST["strCourriel"]);
+			$objEmail->stpi_setStrSubject($objTexte->stpi_getArrTxt("emailsubject"));
+			$objEmail->stpi_setStrMessage("<p>" . $objTexte->stpi_getArrTxt("emailmessage") . " " . $strPassword . "<br/>" . $objTexte->stpi_getArrTxt("emailwarning") . "<br/>IP: " . $_SERVER["REMOTE_ADDR"] . "</p>\n");					
+			if ($objEmail->stpi_Send())
+			{
+				print("<span style=\"color:#008000;\">" .  $objTexte->stpi_getArrTxt("sended") . "</span><br/>\n");
+			}
+		}
+	}
+				
 	
-	<div id="bottommenu">
-		<?php
-			$objMenu->stpi_affPublicMenu();
-		?>
-	</div>
+	print("<form name=\"forgotpass\" action=\"./forgotpass.php?l=" . LG . "&amp;op=send\" method=\"post\">\n");
 	
-	<div id="footer">
-		<?php
-			$objFooter->stpi_affPublicFooter();
-		?>
-	</div>
-	
-	</body>
+	print("<table>\n");
+	print("<tr>\n");
+	print("<td colspan=\"2\" style=\"text-align: left; vertical-align: top;\">\n");
+	print($objTexte->stpi_getArrTxt("instruction") . "\n");
+	print("</td>\n");
+	print("</tr>\n");
+	print("<tr>\n");			
+	print("<td style=\"text-align: right; vertical-align: top;\" >\n");
+	print($objTexte->stpi_getArrTxt("courriel"));
+	print("</td>\n");
+	print("<td style=\"text-align: left; vertical-align: top;\">\n");
+	print("<input type=\"text\" maxlength=\"200\" size=\"30\" name=\"strCourriel\" id=\"strCourriel\" value=\"\" />\n");
+	print("</td>\n");
+	print("</tr>\n");
+	print("<tr>\n");
+	print("<td style=\"text-align: right; vertical-align: top;\" >\n");
+	print($objTexte->stpi_getArrTxt("captcha") . "<br/>\n");
+	print("</td>\n");
+	print("<td style=\"text-align: left; vertical-align: top;\">\n");
+	print("<img style=\"border: 2px solid black;\" src=\"./stpiadmin/captcha.php\" alt=\"Captcha\"/>\n");
+	print("<br/>\n");
+	print("<input type=\"text\" size=\"20\" id=\"strCaptcha\" name=\"strCaptcha\" value=\"\" />\n");
+	print("</td>\n");
+	print("</tr>\n");
+	print("<tr>\n");
+	print("<td colspan=\"2\" style=\"text-align: right; vertical-align: top;\">\n");
+	print("<input type=\"submit\" value=\"" . $objTexte->stpi_getArrTxt("send") . "\"/>\n");
+	print("</td>");
+	print("</tr>\n");
+	print("</table>\n");
 
-</html>
+	print("</form>\n");
+	// <!-- MainContentEnd -->
+	
+	$objFooter->stpi_affFooter();
+?>

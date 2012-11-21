@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jun 22, 2012 at 04:27 PM
--- Server version: 5.5.24
--- PHP Version: 5.3.10-1ubuntu3.1
+-- Generation Time: Nov 21, 2012 at 04:22 PM
+-- Server version: 5.5.28
+-- PHP Version: 5.3.10-1ubuntu3.4
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -2538,9 +2538,9 @@ CREATE TABLE IF NOT EXISTS `stpi_menu_MenuElement_Lg` (
 --
 
 INSERT INTO `stpi_menu_MenuElement_Lg` (`nbMenuElementLgID`, `nbMenuElementID`, `strTexte`, `strLien`, `strLg`) VALUES
-(1, 1, 'Home', './home.php?l=en', 'en'),
-(2, 1, 'Inicio', './home.php?l=es', 'es'),
-(3, 1, 'Accueil', './home.php?l=fr', 'fr'),
+(1, 1, 'Home', './index.php?l=en', 'en'),
+(2, 1, 'Inicio', './index.php?l=es', 'es'),
+(3, 1, 'Accueil', './index.php?l=fr', 'fr'),
 (4, 2, 'Shop', './shop.php?l=en', 'en'),
 (5, 2, 'Tienda', './shop.php?l=es', 'es'),
 (6, 2, 'Boutique', './shop.php?l=fr', 'fr'),
@@ -2625,7 +2625,14 @@ CREATE TABLE IF NOT EXISTS `stpi_news_News` (
   `nbTypeNewsID` int(11) NOT NULL,
   `dtEntryDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`nbNewsID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `stpi_news_News`
+--
+
+INSERT INTO `stpi_news_News` (`nbNewsID`, `nbTypeNewsID`, `dtEntryDate`) VALUES
+(1, 1, '2012-06-27 00:22:15');
 
 -- --------------------------------------------------------
 
@@ -2641,7 +2648,16 @@ CREATE TABLE IF NOT EXISTS `stpi_news_News_Lg` (
   `strNews` text COLLATE utf8_unicode_ci NOT NULL,
   `strLg` varchar(2) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`nbNewsLgID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `stpi_news_News_Lg`
+--
+
+INSERT INTO `stpi_news_News_Lg` (`nbNewsLgID`, `nbNewsID`, `strTitre`, `strNews`, `strLg`) VALUES
+(1, 1, 'sadf', 'asdf', 'en'),
+(2, 1, 'sdaf', 'sadf', 'es'),
+(3, 1, 'sadf', 'sadf', 'fr');
 
 -- --------------------------------------------------------
 

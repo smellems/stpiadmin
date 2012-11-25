@@ -1,7 +1,7 @@
 <?php
 
 require_once(dirname(__FILE__) . "/../commande/clscommandesession.php");
-	require_once("./stpiadmin/includes/classes/content/clsmenu.php");
+require_once(dirname(__FILE__) . "/../content/clsmenu.php");
 
 class clsbody
 {
@@ -16,8 +16,8 @@ class clsbody
 		$this->objBdd = clsBdd::singleton();
 		$this->objTexte = new clstexte(dirname(__FILE__) . "/txtcontent");		
 		$this->objCommandeSession = new clscommandesession();
-    $this->objMenu = new clsmenu(basename($_SERVER["SCRIPT_NAME"]));
-	  $this->objLock = new clslock(basename($_SERVER["SCRIPT_NAME"]), "login.php");
+		$this->objMenu = new clsmenu(basename($_SERVER["SCRIPT_NAME"]));
+		$this->objLock = new clslock(basename($_SERVER["SCRIPT_NAME"]), "login.php");
 	}
 
 	public function stpi_affSearch()

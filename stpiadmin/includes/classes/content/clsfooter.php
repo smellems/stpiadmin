@@ -44,9 +44,12 @@ class clsfooter
 		print("</p>\n");
 	}
 
-	public function stpi_affFooter()
+	public function stpi_affFooter($closeMainContent = 1)
 	{
-		print("</div></div>");
+		if($closeMainContent == 1)
+		{
+			print("</div></div>");
+		}
 		print("</div></div>");
 
 		print("<div id=\"wb-foot\"><div id=\"wb-foot-in\"><footer><h2 id=\"wb-nav\">Pied de page</h2>");

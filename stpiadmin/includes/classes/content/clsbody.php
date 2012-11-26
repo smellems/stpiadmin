@@ -2,6 +2,7 @@
 
 require_once(dirname(__FILE__) . "/../commande/clscommandesession.php");
 require_once(dirname(__FILE__) . "/../content/clsmenu.php");
+require_once(dirname(__FILE__) . "/../security/clslock.php");
 
 class clsbody
 {
@@ -93,7 +94,7 @@ class clsbody
 	{
 		$nbQte = 0;
 		$nbTotal = 0;
-		
+		print("<div id=\"cart\">");
 		if (isset($_SESSION["stpiObjCommandeSession"]))
 		{
 			$this->objCommandeSession = $this->objCommandeSession->stpi_getObjCommandeSessionFromSession();
@@ -119,6 +120,7 @@ class clsbody
 			print($this->objBdd->stpi_trsBddToHTML($this->stpi_trsNbToPrix($nbTotal)) . " $ - ");
 			print("<a href=\"./" . $this->strCheckoutUrl . "?l=" . LG . "\" >" . $this->objTexte->stpi_getArrTxt("cartpayer") . "</a>\n");
 		}
+		print("</div>");
 	}	
 	
 	public function stpi_trsInputToHTML($nstrTexte)

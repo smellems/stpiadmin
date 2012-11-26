@@ -604,7 +604,9 @@ class clsitem
 		{
 			$arrNbCatItemID = array();
 		}
-		
+		print("</div></div>");
+
+		print("<div id=\"wb-sec\"><div id=\"wb-sec-in\"><nav role=\"navigation\"><h2 id=\"wb-nav\">Secondary menu</h2><div class=\"wb-sec-def\">\n");
 		foreach ($arrNbCatItemID as $nbCatItemID)
 		{
 			if (!$objCatItem->stpi_setNbID($nbCatItemID))
@@ -624,22 +626,20 @@ class clsitem
 					$arrNbTypeItemID = array();
 				}
 				
-				print("<div class=\"catactive\">\n");
+				print("<section>");
 				if ($nnbTypeItemID != 0)
 				{
-					print("<a class=\"catactive\" href=\"./shop.php?l=" . LG . "&amp;nbCatItemID=" . $nbCatItemID . "\">");
+					print("<h3><a class=\"catactive\" href=\"./shop.php?l=" . LG . "&amp;nbCatItemID=" . $nbCatItemID . "\">");
 				}
 				else
 				{
-					print("<a class=\"catactive\" href=\"./shop.php?l=" . LG . "\">");
+					print("<h3><a class=\"catactive\" href=\"./shop.php?l=" . LG . "\">");
 				}
 				print($this->objBdd->stpi_trsBddToHTML($objCatItemLg->stpi_getStrName()));
-				print("</a>\n");
-				print("</div>\n");
+				print("</a></h3>\n");
 				
 				if (!empty($arrNbTypeItemID))
-				{
-					print("<div id=\"type\">\n");					
+				{				
 					print("<ul>\n");					
 					foreach ($arrNbTypeItemID as $nbTypeItemID)
 					{
@@ -670,19 +670,21 @@ class clsitem
 							print("</li>\n");
 						}
 					}					
-					print("</ul>\n");					
-					print("</div>\n");
+					print("</ul>\n");
 				}
+				print("</section>\n");
 			}
 			else
 			{
-				print("<div class=\"cat\">\n");
-				print("<a class=\"cat\" href=\"./shop.php?l=" . LG . "&amp;nbCatItemID=" . $nbCatItemID . "\">");
+				print("<section>\n");
+				print("<h3><a class=\"cat\" href=\"./shop.php?l=" . LG . "&amp;nbCatItemID=" . $nbCatItemID . "\">");
 				print($this->objBdd->stpi_trsBddToHTML($objCatItemLg->stpi_getStrName()));
-				print("</a>\n");
-				print("</div>\n");
+				print("</a></h3>\n");
+				print("</section>\n");
 			}
 		}
+		print("</div></nav></div></div></div></div>");
+
 	}
 	
 	

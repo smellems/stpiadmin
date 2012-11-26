@@ -312,5 +312,5 @@
 	// SideMenu
 	$objItem->stpi_affSideMenuPublic($boolRegistre, $_GET["nbCatItemID"], $_GET["nbTypeItemID"]);
 	
-	$objFooter->stpi_affFooter();
+	$objFooter->stpi_affFooter(0);
 ?>

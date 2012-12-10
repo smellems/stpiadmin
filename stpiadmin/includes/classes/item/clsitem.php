@@ -676,15 +676,14 @@ class clsitem
 			}
 			else
 			{
-				print("<section>\n");
-				print("<h3><a class=\"cat\" href=\"./shop.php?l=" . LG . "&amp;nbCatItemID=" . $nbCatItemID . "\">");
+				print("<div><ul>\n");
+				print("<li class=\"top-level\"><a href=\"./shop.php?l=" . LG . "&amp;nbCatItemID=" . $nbCatItemID . "\">");
 				print($this->objBdd->stpi_trsBddToHTML($objCatItemLg->stpi_getStrName()));
-				print("</a></h3>\n");
-				print("</section>\n");
+				print("</a></li>\n");
+				print("</ul></div>\n");
 			}
 		}
-		print("</div></nav></div></div></div></div>");
-
+		print("</div></nav></div></div>");
 	}
 	
 	
@@ -718,6 +717,8 @@ class clsitem
 			xmlHttp.send(null);
 		}
 		-->
+
+
 		<?php
 		print("</script>\n");
 	}

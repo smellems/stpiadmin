@@ -260,23 +260,23 @@ class clslock
 	
 	public function stpi_affMyAccountUrl()
 	{
-		print("<p><a href=\"./" . $this->strPublicMyAccount . "?l=" . LG . "\">");
+		print("<div><a href=\"./" . $this->strPublicMyAccount . "?l=" . LG . "\">");
 		print($this->objBdd->stpi_trsBddToHTML($this->objTexte->stpi_getArrTxt("myaccount")));
 		print("</a>");
 		print("<a href=\"./" . $this->strPublicLogout . "?l=" . LG . "\" >");
 		print($this->objBdd->stpi_trsBddToHTML($this->objTexte->stpi_getArrTxt("logout")));
-		print("</a></p>\n");
+		print("</a></div>\n");
 	}
 	
 	
 	public function stpi_affLoginUrl()
 	{
-		print("<p><a href=\"./" . $this->strRedirect . "?l=" . LG . "\">");
+		print("<div><a href=\"./" . $this->strRedirect . "?l=" . LG . "\">");
 		print($this->objBdd->stpi_trsBddToHTML($this->objTexte->stpi_getArrTxt("login")));
 		print("</a>");
 		print("<a href=\"./" . $this->strPublicRegister . "?l=" . LG . "\" >");
 		print($this->objBdd->stpi_trsBddToHTML($this->objTexte->stpi_getArrTxt("register")));
-		print("</a></p>\n");
+		print("</a></div>\n");
 	}
 }
 

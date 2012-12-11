@@ -37,7 +37,7 @@
 	
 	// Début page
 	$objHead->stpi_affPublicHead();
-	$objBody->stpi_affBodyHeader($objPageLg->stpi_getStrTitre());
+	$objBody->stpi_affBodyHeader($objTexte->stpi_getArrTxt("headtitre"));
 
 	// <!-- MainContentStart -->
 	$objJavaScript->stpi_affArrLang();
@@ -65,7 +65,7 @@
 				{
 					$strArrSousItem = "0";
 				
-					print("<table width=\"100%\" style=\"padding: 10px;\" >\n");
+					print("<table style=\"padding: 10px;\" >\n");
 					print("<tr>\n");
 					print("<td style=\"text-align: left;\" >\n");
 					print("<h3 style=\"padding: 0px;\" >\n");

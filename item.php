@@ -134,263 +134,206 @@
 	$objLock = new clslock($strPage, "login.php");
 	
 	$objLock->stpi_pageNotEncrypted();
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-	<?php
-		$objHead->stpi_affPublicHead();
-	?>
-	</head>
-	<body>
-	
-	<div id="header">
-		<div id="menulang">
-			<?php
-				$objMenu->stpi_affPublicMenuLang();
-			?>
-		</div>		
-		<div id="loginurl">
-			<?php
-				$objLock->stpi_affUrl();
-			?>
-		</div>		
-		<div id="cart"><?php $objBody->stpi_affCartUrl();  ?></div>
-		
-		<div id="welcomemsg">
-			<?php
-				print($objTexte->stpi_getArrTxt("welcome"));
-			?>
-		</div>				
-	</div>
-	
-	<div id="topmenu">
-		<?php
-			$objMenu->stpi_affPublicMenu();
-		?>		
-	</div>
-	
-	<div id="container">
-	
-		<div id="sidemenu">
-			<?php
-			
-				$objItem->stpi_affSideMenuPublic($boolRegistre, $_GET["nbCatItemID"], $_GET["nbTypeItemID"]);
 
-			?>
-		</div>
-		 	
-		<div id="content">
-			<?php
-				$objMotd->stpi_affPublic();
-			?>
-			<?php
-				$objJavaScript->stpi_affArrLang();
-				$objJavaScript->stpi_affNoAjax();
-				$objJavaScript->stpi_affCreateXmlHttp();
-				$objJavaScript->stpi_affNoJavaScript();
+	// Début page
+	$objHead->stpi_affPublicHead();
+	$objBody->stpi_affBodyHeader($objTexte->stpi_getArrTxt("welcome"), "-sec");
+
+	// <!-- MainContentStart -->
+	$objMotd->stpi_affPublic();
+
+	$objJavaScript->stpi_affArrLang();
+	$objJavaScript->stpi_affNoAjax();
+	$objJavaScript->stpi_affCreateXmlHttp();
+	$objJavaScript->stpi_affNoJavaScript();
 				
-				$objSousItem =& $objItem->stpi_getObjSousItem();
-				$objAttribut =& $objSousItem->stpi_getObjAttribut();
+	$objSousItem =& $objItem->stpi_getObjSousItem();
+	$objAttribut =& $objSousItem->stpi_getObjAttribut();
+
+	$objSousItem->stpi_affJsTagImgPublic();
+	$objSousItem->stpi_affJsTagImgLargePublic();	
+	$objSousItem->stpi_affJsPrixPublic();
+	$objSousItem->stpi_affJsSousItemToCommande();
+	
+	$objSousItem->stpi_setNbNumImage(1);				
+	$nbImgSousItemWidthMaxSmall = $objSousItem->stpi_getNbImgWidthMax();
+	$nbImgSousItemHeightMaxSmall = $objSousItem->stpi_getNbImgHeightMax();
+	
+	$objSousItem->stpi_setNbNumImage(2);				
+	$nbImgSousItemWidthMaxBig = $objSousItem->stpi_getNbImgWidthMax();
+	$nbImgSousItemHeightMaxBig = $objSousItem->stpi_getNbImgHeightMax();			
+	
+	$objImgSousItem =& $objSousItem->stpi_getObjImg();
+	
+	if ($objItem->stpi_setNbID($_GET["nbItemID"]))
+	{
+		$objItem->stpi_affPublic();
+	}
+	
+	$nbSousItem = 0;
+	
+	if ($arrNbSousItemID = $objItem->stpi_selNbSousItemID())
+	{
+		$nbSousItem = count($arrNbSousItemID);
+	}
+	
+	if ($nbSousItem > 1)
+	{					
+		if ($arrNbImageID = $objItem->stpi_selSousItemNbImageID($boolRegistre))
+		{
+			print("<table style=\"padding: 10px; margin: 0px;\" >\n");
+			print("<tr>\n");
 			
-				$objSousItem->stpi_affJsTagImgPublic();
-				$objSousItem->stpi_affJsTagImgLargePublic();	
-				$objSousItem->stpi_affJsPrixPublic();
-				$objSousItem->stpi_affJsSousItemToCommande();
-				
-				$objSousItem->stpi_setNbNumImage(1);				
-				$nbImgSousItemWidthMaxSmall = $objSousItem->stpi_getNbImgWidthMax();
-				$nbImgSousItemHeightMaxSmall = $objSousItem->stpi_getNbImgHeightMax();
-				
-				$objSousItem->stpi_setNbNumImage(2);				
-				$nbImgSousItemWidthMaxBig = $objSousItem->stpi_getNbImgWidthMax();
-				$nbImgSousItemHeightMaxBig = $objSousItem->stpi_getNbImgHeightMax();			
-				
-				$objImgSousItem =& $objSousItem->stpi_getObjImg();
-				
-				if ($objItem->stpi_setNbID($_GET["nbItemID"]))
+			$SQL = "SELECT nbSousItemID";
+			$SQL .= " FROM stpi_item_SousItem_ImgSousItem";
+			$SQL .= " WHERE nbImageID = '" . $objBdd->stpi_trsInputToBdd($arrNbImageID[0]) . "'";
+			
+			if ($result = $objBdd->stpi_select($SQL))
+			{
+				if ($row = mysql_fetch_assoc($result))
 				{
-					$objItem->stpi_affPublic();
-				}
-				
-				$nbSousItem = 0;
-				
-				if ($arrNbSousItemID = $objItem->stpi_selNbSousItemID())
-				{
-					$nbSousItem = count($arrNbSousItemID);
-				}
-				
-				if ($nbSousItem > 1)
-				{					
-					if ($arrNbImageID = $objItem->stpi_selSousItemNbImageID($boolRegistre))
+					if ($objSousItem->stpi_setNbID($row["nbSousItemID"]))
 					{
-						print("<table style=\"padding: 10px; margin: 0px;\" >\n");
-						print("<tr>\n");
-						
-						$SQL = "SELECT nbSousItemID";
-						$SQL .= " FROM stpi_item_SousItem_ImgSousItem";
-						$SQL .= " WHERE nbImageID = '" . $objBdd->stpi_trsInputToBdd($arrNbImageID[0]) . "'";
-						
-						if ($result = $objBdd->stpi_select($SQL))
+						if ($arrNbImageIDNumImage = $objSousItem->stpi_selNbImageID())
 						{
-							if ($row = mysql_fetch_assoc($result))
+							if (isset($arrNbImageIDNumImage[2]))
 							{
-								if ($objSousItem->stpi_setNbID($row["nbSousItemID"]))
+								if ($objImgSousItem->stpi_setNbID($arrNbImageIDNumImage[2]))
 								{
-									if ($arrNbImageIDNumImage = $objSousItem->stpi_selNbImageID())
+									if ($objImgSousItem->stpi_setNbWidthHeightFromImg())
 									{
-										if (isset($arrNbImageIDNumImage[2]))
+										if ($objItem->stpi_setNbID($objSousItem->stpi_getNbItemID()))
 										{
-											if ($objImgSousItem->stpi_setNbID($arrNbImageIDNumImage[2]))
+											if ($objItem->stpi_setObjItemLgFromBdd())
 											{
-												if ($objImgSousItem->stpi_setNbWidthHeightFromImg())
+												print("<td id=\"stpi_affSousItemImg\" style=\"width: " . $objBdd->stpi_trsBddToHTML(($nbImgSousItemWidthMaxBig / 2)) . "px; text-align: center;\" >\n");
+												print("<img style=\"cursor: pointer;\" onclick=\"window.open ('sousitemimgaff.php?l=" . LG . "&amp;nbImageID=" . $objBdd->stpi_trsBddToHTML($objImgSousItem->stpi_getNbID()) . "', '', config='height=550, width=550, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, directories=no, status=no')\" width=\"" . $objBdd->stpi_trsBddToHTML(($objImgSousItem->stpi_getNbWidth() / 2)) . "px\" height=\"" . $objBdd->stpi_trsBddToHTML(($objImgSousItem->stpi_getNbHeight() / 2)) . "px\" alt=\"" . $objBdd->stpi_trsBddToHTML($objItem->stpi_getObjItemLg()->stpi_getStrName()) . "\" src=\"./sousitemimgaff.php?l=" . LG . "&amp;nbImageID=" . $objBdd->stpi_trsBddToHTML($objImgSousItem->stpi_getNbID()) . "\" />\n");
+												print("</td>\n");
+											}
+										}
+									}
+								}	
+							}
+						}
+					}
+				}
+				mysql_free_result($result);
+			}
+			
+			print("<td style=\"text-align: left; vertical-align: top;\" >\n");
+			print("<table>\n");
+			print("<tr>\n");
+			$i = 0;
+			foreach ($arrNbImageID as $nbImageID)
+			{
+				$i++;
+				if($i > 4)
+				{
+					print("</tr>\n");
+					print("<tr>\n");
+					$i = 1;
+				}
+				print("<td style=\"width: " . $objBdd->stpi_trsBddToHTML(($nbImgSousItemWidthMaxSmall / 2)) . "px; vertical-align: top; text-align: center;\" >\n");
+				
+				$SQL1 = "SELECT nbSousItemID";
+				$SQL1 .= " FROM stpi_item_SousItem_ImgSousItem";
+				$SQL1 .= " WHERE nbImageID = '" . $objBdd->stpi_trsInputToBdd($nbImageID) . "'";
+				if ($result1 = $objBdd->stpi_select($SQL1))
+				{
+					$nbSousItemMatch = mysql_num_rows($result1);
+					if ($row1 = mysql_fetch_assoc($result1))
+					{
+						if ($objSousItem->stpi_setNbID($row1["nbSousItemID"]))
+						{
+							if ($arrNbImageIDNumImage = $objSousItem->stpi_selNbImageID())
+							{
+								if (isset($arrNbImageIDNumImage[1]))
+								{
+									if ($objImgSousItem->stpi_setNbID($arrNbImageIDNumImage[1]))
+									{
+										if ($objItem->stpi_setNbID($objSousItem->stpi_getNbItemID()))
+										{
+											if ($objItem->stpi_setObjItemLgFromBdd())
+											{
+												$nbSousItemResizedWidthSmall = $objImgSousItem->stpi_getNbWidth() / 2;
+												$nbSousItemResizedHeightSmall = $objImgSousItem->stpi_getNbHeight() / 2;
+												if (isset($arrNbImageIDNumImage[2]))
 												{
-													if ($objItem->stpi_setNbID($objSousItem->stpi_getNbItemID()))
+													if ($objImgSousItem->stpi_setNbID($arrNbImageIDNumImage[2]))
 													{
-														if ($objItem->stpi_setObjItemLgFromBdd())
+														if ($objImgSousItem->stpi_setNbWidthHeightFromImg())
 														{
-															print("<td id=\"stpi_affSousItemImg\" style=\"width: " . $objBdd->stpi_trsBddToHTML(($nbImgSousItemWidthMaxBig / 2)) . "px; text-align: center;\" >\n");
-															print("<img style=\"cursor: pointer;\" onclick=\"window.open ('sousitemimgaff.php?l=" . LG . "&amp;nbImageID=" . $objBdd->stpi_trsBddToHTML($objImgSousItem->stpi_getNbID()) . "', '', config='height=550, width=550, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, directories=no, status=no')\" width=\"" . $objBdd->stpi_trsBddToHTML(($objImgSousItem->stpi_getNbWidth() / 2)) . "px\" height=\"" . $objBdd->stpi_trsBddToHTML(($objImgSousItem->stpi_getNbHeight() / 2)) . "px\" alt=\"" . $objBdd->stpi_trsBddToHTML($objItem->stpi_getObjItemLg()->stpi_getStrName()) . "\" src=\"./sousitemimgaff.php?l=" . LG . "&amp;nbImageID=" . $objBdd->stpi_trsBddToHTML($objImgSousItem->stpi_getNbID()) . "\" />\n");
-															print("</td>\n");
+															print("<img style=\"cursor: pointer;\" onclick=\"stpi_affSousItemTagImgLarge(" . $objBdd->stpi_trsBddToHTML($arrNbImageIDNumImage[2]) . ", " . $objBdd->stpi_trsBddToHTML(($objImgSousItem->stpi_getNbWidth() / 2)) . ", " . $objBdd->stpi_trsBddToHTML(($objImgSousItem->stpi_getNbHeight() / 2)) . ", '" . $objBdd->stpi_trsBddToHTML(str_replace("'", "", $objItem->stpi_getObjItemLg()->stpi_getStrName())) . "')\" width=\"" . $objBdd->stpi_trsBddToHTML($nbSousItemResizedWidthSmall) . "px\" height=\"" . $objBdd->stpi_trsBddToHTML($nbSousItemResizedHeightSmall) . "px\" src=\"./sousitemimgaff.php?l=" . LG . "&amp;nbImageID=" . $objBdd->stpi_trsBddToHTML($arrNbImageIDNumImage[1]) . "\"");
 														}
 													}
 												}
-											}	
-										}
-									}
-								}
-							}
-							mysql_free_result($result);
-						}
-						
-						print("<td style=\"text-align: left; vertical-align: top;\" >\n");
-						print("<table>\n");
-						print("<tr>\n");
-						$i = 0;
-						foreach ($arrNbImageID as $nbImageID)
-						{
-							$i++;
-							if($i > 4)
-							{
-								print("</tr>\n");
-								print("<tr>\n");
-								$i = 1;
-							}
-							print("<td style=\"width: " . $objBdd->stpi_trsBddToHTML(($nbImgSousItemWidthMaxSmall / 2)) . "px; vertical-align: top; text-align: center;\" >\n");
-							
-							$SQL1 = "SELECT nbSousItemID";
-							$SQL1 .= " FROM stpi_item_SousItem_ImgSousItem";
-							$SQL1 .= " WHERE nbImageID = '" . $objBdd->stpi_trsInputToBdd($nbImageID) . "'";
-							if ($result1 = $objBdd->stpi_select($SQL1))
-							{
-								$nbSousItemMatch = mysql_num_rows($result1);
-								if ($row1 = mysql_fetch_assoc($result1))
-								{
-									if ($objSousItem->stpi_setNbID($row1["nbSousItemID"]))
-									{
-										if ($arrNbImageIDNumImage = $objSousItem->stpi_selNbImageID())
-										{
-											if (isset($arrNbImageIDNumImage[1]))
-											{
-												if ($objImgSousItem->stpi_setNbID($arrNbImageIDNumImage[1]))
+												else
 												{
-													if ($objItem->stpi_setNbID($objSousItem->stpi_getNbItemID()))
+													print("<img width=\"" . $objBdd->stpi_trsBddToHTML($nbSousItemResizedWidthSmall) . "px\" height=\"" . $objBdd->stpi_trsBddToHTML($nbSousItemResizedHeightSmall) . "px\" src=\"./sousitemimgaff.php?l=" . LG . "&amp;nbImageID=" . $objBdd->stpi_trsBddToHTML($arrNbImageIDNumImage[1]) . "\"");
+												}
+												
+												$SQL2 = "SELECT stpi_item_SousItem_Attribut.nbAttributID, COUNT(*) AS nbMatch";
+												$SQL2 .= " FROM stpi_item_SousItem_ImgSousItem, stpi_item_SousItem_Attribut, stpi_item_Attribut, stpi_item_TypeAttribut_Lg";
+												$SQL2 .= " WHERE stpi_item_SousItem_ImgSousItem.nbImageID = '" . $objBdd->stpi_trsInputToBdd($nbImageID) . "'";
+												$SQL2 .= " AND stpi_item_SousItem_Attribut.nbSousItemID = stpi_item_SousItem_ImgSousItem.nbSousItemID";
+												$SQL2 .= " AND stpi_item_SousItem_Attribut.nbAttributID = stpi_item_Attribut.nbAttributID";
+												$SQL2 .= " AND stpi_item_Attribut.nbTypeAttributID = stpi_item_TypeAttribut_Lg.nbTypeAttributID";
+												$SQL2 .= " AND stpi_item_TypeAttribut_Lg.strLg = '" . $objBdd->stpi_trsInputToBdd(LG) . "'";
+												$SQL2 .= " GROUP BY stpi_item_SousItem_Attribut.nbAttributID";
+												$SQL2 .= " HAVING nbMatch = '" . $objBdd->stpi_trsInputToBdd($nbSousItemMatch) . "'";
+												$SQL2 .= " ORDER BY stpi_item_TypeAttribut_Lg.strName";
+												
+												$arrStrName = array();
+												if ($result2 = $objBdd->stpi_select($SQL2))
+												{
+													while ($row2 = mysql_fetch_assoc($result2))
 													{
-														if ($objItem->stpi_setObjItemLgFromBdd())
-														{
-															$nbSousItemResizedWidthSmall = $objImgSousItem->stpi_getNbWidth() / 2;
-															$nbSousItemResizedHeightSmall = $objImgSousItem->stpi_getNbHeight() / 2;
-															if (isset($arrNbImageIDNumImage[2]))
+														if ($objAttribut->stpi_setNbID($row2["nbAttributID"]))
+														{									
+															if ($objAttribut->stpi_setObjAttributLgFromBdd())
 															{
-																if ($objImgSousItem->stpi_setNbID($arrNbImageIDNumImage[2]))
-																{
-																	if ($objImgSousItem->stpi_setNbWidthHeightFromImg())
-																	{
-																		print("<img style=\"cursor: pointer;\" onclick=\"stpi_affSousItemTagImgLarge(" . $objBdd->stpi_trsBddToHTML($arrNbImageIDNumImage[2]) . ", " . $objBdd->stpi_trsBddToHTML(($objImgSousItem->stpi_getNbWidth() / 2)) . ", " . $objBdd->stpi_trsBddToHTML(($objImgSousItem->stpi_getNbHeight() / 2)) . ", '" . $objBdd->stpi_trsBddToHTML(str_replace("'", "", $objItem->stpi_getObjItemLg()->stpi_getStrName())) . "')\" width=\"" . $objBdd->stpi_trsBddToHTML($nbSousItemResizedWidthSmall) . "px\" height=\"" . $objBdd->stpi_trsBddToHTML($nbSousItemResizedHeightSmall) . "px\" src=\"./sousitemimgaff.php?l=" . LG . "&amp;nbImageID=" . $objBdd->stpi_trsBddToHTML($arrNbImageIDNumImage[1]) . "\"");
-																	}
-																}
-															}
-															else
-															{
-																print("<img width=\"" . $objBdd->stpi_trsBddToHTML($nbSousItemResizedWidthSmall) . "px\" height=\"" . $objBdd->stpi_trsBddToHTML($nbSousItemResizedHeightSmall) . "px\" src=\"./sousitemimgaff.php?l=" . LG . "&amp;nbImageID=" . $objBdd->stpi_trsBddToHTML($arrNbImageIDNumImage[1]) . "\"");
-															}
-															
-															$SQL2 = "SELECT stpi_item_SousItem_Attribut.nbAttributID, COUNT(*) AS nbMatch";
-															$SQL2 .= " FROM stpi_item_SousItem_ImgSousItem, stpi_item_SousItem_Attribut, stpi_item_Attribut, stpi_item_TypeAttribut_Lg";
-															$SQL2 .= " WHERE stpi_item_SousItem_ImgSousItem.nbImageID = '" . $objBdd->stpi_trsInputToBdd($nbImageID) . "'";
-															$SQL2 .= " AND stpi_item_SousItem_Attribut.nbSousItemID = stpi_item_SousItem_ImgSousItem.nbSousItemID";
-															$SQL2 .= " AND stpi_item_SousItem_Attribut.nbAttributID = stpi_item_Attribut.nbAttributID";
-															$SQL2 .= " AND stpi_item_Attribut.nbTypeAttributID = stpi_item_TypeAttribut_Lg.nbTypeAttributID";
-															$SQL2 .= " AND stpi_item_TypeAttribut_Lg.strLg = '" . $objBdd->stpi_trsInputToBdd(LG) . "'";
-															$SQL2 .= " GROUP BY stpi_item_SousItem_Attribut.nbAttributID";
-															$SQL2 .= " HAVING nbMatch = '" . $objBdd->stpi_trsInputToBdd($nbSousItemMatch) . "'";
-															$SQL2 .= " ORDER BY stpi_item_TypeAttribut_Lg.strName";
-															
-															$arrStrName = array();
-															if ($result2 = $objBdd->stpi_select($SQL2))
-															{
-																while ($row2 = mysql_fetch_assoc($result2))
-																{
-																	if ($objAttribut->stpi_setNbID($row2["nbAttributID"]))
-																	{									
-																		if ($objAttribut->stpi_setObjAttributLgFromBdd())
-																		{
-																			$arrStrName[] = $objAttribut->stpi_getObjAttributLg()->stpi_getStrName();
-																		}	
-																	}
-																}
-																mysql_free_result($result2);
-															}
-													
-													
-															print(" alt=\"" . $objBdd->stpi_trsBddToHTML($objItem->stpi_getObjItemLg()->stpi_getStrName()));
-															foreach ($arrStrName as $strName)
-															{
-																print(", " . $objBdd->stpi_trsBddToHTML($strName));
-															}
-															print("\"/>\n");
-															
-															print("<br/>\n");
-															foreach ($arrStrName as $strName)
-															{
-																print("<h5>" . $objBdd->stpi_trsBddToHTML($strName) . "</h5>\n");
-															}
+																$arrStrName[] = $objAttribut->stpi_getObjAttributLg()->stpi_getStrName();
+															}	
 														}
 													}
+													mysql_free_result($result2);
+												}
+										
+										
+												print(" alt=\"" . $objBdd->stpi_trsBddToHTML($objItem->stpi_getObjItemLg()->stpi_getStrName()));
+												foreach ($arrStrName as $strName)
+												{
+													print(", " . $objBdd->stpi_trsBddToHTML($strName));
+												}
+												print("\"/>\n");
+												
+												print("<br/>\n");
+												foreach ($arrStrName as $strName)
+												{
+													print("<h5>" . $objBdd->stpi_trsBddToHTML($strName) . "</h5>\n");
 												}
 											}
 										}
 									}
-									mysql_free_result($result1);
 								}
 							}
-							print("</td>\n");
 						}
-						print("</tr>\n");
-						print("</table>\n");
-						print("</td>\n");
-						print("</tr>\n");
-						print("</table>\n");
-					}					
+						mysql_free_result($result1);
+					}
 				}
-			?>			
-		</div>
-		
-		<div class="doubleclear"></div>
-	</div>
-	
-	<div id="bottommenu">
-		<?php
-			$objMenu->stpi_affPublicMenu();
-		?>
-	</div>
-	
-	<div id="footer">
-		<?php
-			$objFooter->stpi_affPublicFooter();
-		?>
-	</div>
-	
-	</body>
+				print("</td>\n");
+			}
+			print("</tr>\n");
+			print("</table>\n");
+			print("</td>\n");
+			print("</tr>\n");
+			print("</table>\n");
+		}					
+	}
+	// <!-- MainContentEnd -->
 
-</html>
+	// SideMenu
+	$objItem->stpi_affSideMenuPublic($boolRegistre, $_GET["nbCatItemID"], $_GET["nbTypeItemID"]);
+	
+	$objFooter->stpi_affFooter(0);
+?>			

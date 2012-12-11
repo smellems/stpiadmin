@@ -94,7 +94,7 @@ class clsbody
 	{
 		$nbQte = 0;
 		$nbTotal = 0;
-		print("<div id=\"cart\">");
+		print("<div id=\"cart\" class=\"margin-top-large\">");
 		if (isset($_SESSION["stpiObjCommandeSession"]))
 		{
 			$this->objCommandeSession = $this->objCommandeSession->stpi_getObjCommandeSessionFromSession();
@@ -116,8 +116,8 @@ class clsbody
 				
 		if ($nbQte != 0)
 		{
-			print($this->objBdd->stpi_trsBddToHTML($nbQte) . " " . $this->objTexte->stpi_getArrTxt("carturl") . "<br/>");
-			print($this->objBdd->stpi_trsBddToHTML($this->stpi_trsNbToPrix($nbTotal)) . " $ - ");
+			print($this->objBdd->stpi_trsBddToHTML($nbQte) . " " . $this->objTexte->stpi_getArrTxt("carturl") . ": ");
+			print($this->objBdd->stpi_trsBddToHTML($this->stpi_trsNbToPrix($nbTotal)) . "$ ");
 			print("<a href=\"./" . $this->strCheckoutUrl . "?l=" . LG . "\" >" . $this->objTexte->stpi_getArrTxt("cartpayer") . "</a>\n");
 		}
 		print("</div>");

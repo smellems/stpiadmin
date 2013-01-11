@@ -68,14 +68,12 @@
 
 	// <!-- MainContentStart -->
 	$objMotd->stpi_affPublic();
-	print("<div class=\"news\">\n");
-	print("<h3>" . $objTexte->stpi_getArrTxt("coderegistre") . "</h3>\n");
-	print("<div style=\"margin: 0px; padding: 0px 10px; text-align: center;\" >\n");
-	print($objTexte->stpi_getArrTxt("entrercode") . " :<br/>\n");
-	print("<input type=\"text\" maxlength=\"10\" size=\"10\" id=\"strRegistreCode\" value=\"\" /><br/>\n");
-	print("<input type=\"button\" onclick=\"window.location='./shopregistre.php?l=" . LG . "&amp;strRegistreCode=' + document.getElementById('strRegistreCode').value\" value=\"" . $objTexte->stpi_getArrTxt("shop") . "\"/><br/>\n");
-	print("</div><br/>\n");
+	print("<div class=\"span-2 float-right\">\n");
 
+	print("<h3>" . $objTexte->stpi_getArrTxt("coderegistre") . "</h3>\n");
+	print($objTexte->stpi_getArrTxt("entrercode") . " : <input type=\"text\" maxlength=\"10\" size=\"10\" id=\"strRegistreCode\" value=\"\" /><br/>\n");
+	print("<input type=\"button\" onclick=\"window.location='./shopregistre.php?l=" . LG . "&amp;strRegistreCode=' + document.getElementById('strRegistreCode').value\" value=\"" . $objTexte->stpi_getArrTxt("shop") . "\"/><br/>\n");
+	print("<br/>\n");
 	$objNews->stpi_affPublic(2);
 				
 	print("</div>\n");

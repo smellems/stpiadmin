@@ -37,8 +37,8 @@ class clsbody
 		print("<div id=\"wb-body" . $strBodyId . "\">\n");
 		print("<div id=\"wb-skip\">\n");
 		print("<ul id=\"wb-tphp\">\n");
-		print("<li id=\"wb-skip1\"><a href=\"#wb-cont\">Passer au contenu principal</a></li>\n");
-		print("<li id=\"wb-skip2\"><a href=\"#wb-nav\">Passer au pied de page</a></li>\n");
+		print("<li id=\"wb-skip1\"><a title=\"Passer au contenu principal\" href=\"#wb-cont\">Passer au contenu principal</a></li>\n");
+		print("<li id=\"wb-skip2\"><a title=\"Passer au pied de page\" href=\"#wb-nav\">Passer au pied de page</a></li>\n");
 		print("</ul>\n");
 		print("</div>\n");
 		print("<div id=\"wb-head\"><div id=\"wb-head-in\"><header>\n");
@@ -57,7 +57,7 @@ class clsbody
 
 		// Welcome
 		print("<div id=\"base-bnr\" role=\"banner\"><div id=\"base-bnr-in\">\n");
-		print("<div id=\"base-title\"><p id=\"base-title-in\"><a href=\"./\">\n");
+		print("<div id=\"base-title\"><p id=\"base-title-in\"><a title=\"" . $strWelcome . "\" href=\"./\">\n");
 		print($strWelcome);
 		print("</a></p></div>\n");
 		$this->stpi_affSearch();
@@ -72,7 +72,7 @@ class clsbody
 		// Fil d'Ariane
 		print("<div id=\"base-bc\"><h2>Fil d'Ariane</h2><div id=\"base-bc-in\">\n");
 		print("<ol>\n");
-		print("<li><a href=\"./home.php\">Accueil</a></li>\n");
+		print("<li><a title=\"Accueil\" href=\"./home.php\">Accueil</a></li>\n");
 		print("<li>$strWelcome</li>\n");
 		print("</ol>\n");
 		print("</div></div>\n");
@@ -83,6 +83,7 @@ class clsbody
 
 		print("<div id=\"wb-core\"><div id=\"wb-core-in\" class=\"equalize\">\n");
 		print("<div id=\"wb-main\" role=\"main\"><div id=\"wb-main-in\">\n");
+		print("<!-- MainContentStart -->");
 	}
 
 	public function stpi_affBodyHeader2()

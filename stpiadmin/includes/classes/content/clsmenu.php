@@ -104,7 +104,7 @@ class clsmenu
 						print("&amp;" . $k1 . "=" . $v1);	
 					}
 				}
-				print("\">");
+				print("\" title=\"" . $v . "\">");
 				print($v . "</a></li>\n");
 			}
 			print("</ul>\n");
@@ -126,7 +126,7 @@ class clsmenu
 					{
 						if ($objMenuElement->stpi_setObjMenuElementLgFromBdd())
 						{
-							print("<li><div><a href=\"");
+							print("<li><div><a title=\"" . $objMenuElement->stpi_getObjMenuElementLg()->stpi_getStrText() . "\" href=\"");
 							print($this->objBdd->stpi_trsBddToHTML($objMenuElement->stpi_getObjMenuElementLg()->stpi_getStrLien()) . "\">");
 							print($this->objBdd->stpi_trsBddToHTML($objMenuElement->stpi_getObjMenuElementLg()->stpi_getStrText()) . "</a></div></li>\n");
 						}

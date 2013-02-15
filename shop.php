@@ -185,27 +185,22 @@
 			//$arrNbItemID = $objNavigator->stpi_getArrNbID();
 			//$objNavigator->stpi_aff();
 			
-			print("<table style=\"margin: 0px; padding: 0px 10px;\" >\n");
-			print("<tr>\n");
 			$i = 1; 
 			foreach ($arrNbItemID as $nbItemID)
 			{
 				if ($i == 4)
 				{
-					print("</tr>\n");
-					print("<tr>\n");
+					print("<div class=\"clear\"></div>\n");
 					$i = 1;
 				}
 				if ($objItem->stpi_setNbID($nbItemID))
 				{
-					print("<td>\n");
+					print("<div class=\"span-2\">\n");
 					$objItem->stpi_affShopPublic($boolRegistre);
-					print("</td>\n");
+					print("</div>\n");
 				}
 				$i++;
 			}
-			print("</tr>\n");
-			print("</table>\n");
 			
 			//$objNavigator->stpi_aff();
 		}
@@ -266,28 +261,22 @@
 						print("</h3>");
 					}
 					
-					print("<table style=\"padding: 0px 10px 35px 10px; margin: 0px;\" >\n");
-					print("<tr>\n");
 					$i = 1; 
 					for ($i = 0; $i < $nbItems; $i++)
 					{
 						if ($objItem->stpi_setNbID($arrNbItemID[$i]))
 						{
-							print("<td>\n");
+							print("<div class=\"span-6\">\n");
 							$objItem->stpi_affShopPublic($boolRegistre);
-							print("</td>\n");
+							print("</div>\n");
 						}
 					}
-					print("</tr>\n");
-					print("</table>\n");
 				}
 			}
 		}					
 	}
 	else
 	{	
-		print("<table style=\"padding: 0px 10px; margin: 0px;\" >\n");
-		print("<tr>\n");
 		$i = 0;	
 		foreach ($arrNbCatItemID as $nbCatItemID)
 		{
@@ -299,12 +288,11 @@
 			$i++;
 			if ($objCatItem->stpi_setNbID($nbCatItemID))
 			{
-				print("<td style=\"padding: 10px 10px; margin: 0px; width: " . $objBdd->stpi_trsBddToHTML($objCatItem->stpi_getNbImgWidthMax()) . "px; height: " . $objBdd->stpi_trsBddToHTML($objCatItem->stpi_getNbImgHeightMax()) . "px; vertical-align: top;\" >\n");
+				print("<div class=\"span-6\">\n");
 				$objCatItem->stpi_affPublic();
-				print("</td>");
+				print("</div>");
 			}
 		}
-		print("</tr></table>\n");
 	}
 	print("<p><br></br>" . $objTexte->stpi_getArrTxt("voirles") . " <a href=\"politiques.php?l=" . $objBdd->stpi_trsBddToHTML(LG) . "\">" . $objTexte->stpi_getArrTxt("termsconditions") . "</a></p>\n");
 	// <!-- MainContentEnd -->

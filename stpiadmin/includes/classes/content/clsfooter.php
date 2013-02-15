@@ -48,6 +48,7 @@ class clsfooter
 	{
 		if($closeMainContent == 1)
 		{
+			print("<!-- MainContentEnd -->");
 			print("</div></div>");
 		}
 		print("</div></div>");

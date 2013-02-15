@@ -604,8 +604,9 @@ class clsitem
 		{
 			$arrNbCatItemID = array();
 		}
-		print("</div></div>");
 
+		print("<!-- MainContentEnd -->");
+		print("</div></div>");
 		print("<div id=\"wb-sec\"><div id=\"wb-sec-in\"><nav role=\"navigation\"><h2 id=\"wb-nav\">Secondary menu</h2><div class=\"wb-sec-def\">\n");
 		foreach ($arrNbCatItemID as $nbCatItemID)
 		{
@@ -626,14 +627,14 @@ class clsitem
 					$arrNbTypeItemID = array();
 				}
 				
-				print("<section>");
+				print("<section><h3><a title=\"" . $this->objBdd->stpi_trsBddToHTML($objCatItemLg->stpi_getStrName()) . "\" href=\"./shop.php?l=" . LG);
 				if ($nnbTypeItemID != 0)
 				{
-					print("<h3><a class=\"catactive\" href=\"./shop.php?l=" . LG . "&amp;nbCatItemID=" . $nbCatItemID . "\">");
+					print("&amp;nbCatItemID=" . $nbCatItemID . "\">");
 				}
 				else
 				{
-					print("<h3><a class=\"catactive\" href=\"./shop.php?l=" . LG . "\">");
+					print("\">");
 				}
 				print($this->objBdd->stpi_trsBddToHTML($objCatItemLg->stpi_getStrName()));
 				print("</a></h3>\n");
@@ -653,22 +654,11 @@ class clsitem
 							return false;
 						}
 						
-						if ($nbTypeItemID == $nnbTypeItemID)
-						{
-							print("<li>\n");
-							print("<a class=\"active\" href=\"./shop.php?l=" . LG . "&amp;nbCatItemID=" . $nbCatItemID . "&amp;nbTypeItemID=" . $nbTypeItemID . "\">");
-							print($this->objBdd->stpi_trsBddToHTML($objTypeItemLg->stpi_getStrName()));
-							print("</a>\n");
-							print("</li>\n");	
-						}
-						else
-						{
-							print("<li>\n");
-							print("<a href=\"./shop.php?l=" . LG . "&amp;nbCatItemID=" . $nbCatItemID . "&amp;nbTypeItemID=" . $nbTypeItemID . "\">");
-							print($this->objBdd->stpi_trsBddToHTML($objTypeItemLg->stpi_getStrName()));
-							print("</a>\n");
-							print("</li>\n");
-						}
+						print("<li>\n");
+						print("<a title=\"" . $this->objBdd->stpi_trsBddToHTML($objCatItemLg->stpi_getStrName()) . "\" href=\"./shop.php?l=" . LG . "&amp;nbCatItemID=" . $nbCatItemID . "&amp;nbTypeItemID=" . $nbTypeItemID . "\">");
+						print($this->objBdd->stpi_trsBddToHTML($objTypeItemLg->stpi_getStrName()));
+						print("</a>\n");
+						print("</li>\n");
 					}					
 					print("</ul>\n");
 				}
@@ -677,7 +667,7 @@ class clsitem
 			else
 			{
 				print("<div><ul>\n");
-				print("<li class=\"top-level\"><a href=\"./shop.php?l=" . LG . "&amp;nbCatItemID=" . $nbCatItemID . "\">");
+				print("<li class=\"top-level\"><a title=\"" . $this->objBdd->stpi_trsBddToHTML($objCatItemLg->stpi_getStrName()) . "\" href=\"./shop.php?l=" . LG . "&amp;nbCatItemID=" . $nbCatItemID . "\">");
 				print($this->objBdd->stpi_trsBddToHTML($objCatItemLg->stpi_getStrName()));
 				print("</a></li>\n");
 				print("</ul></div>\n");

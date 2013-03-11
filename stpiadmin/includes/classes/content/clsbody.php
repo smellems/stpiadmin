@@ -86,11 +86,6 @@ class clsbody
 		print("<!-- MainContentStart -->");
 	}
 
-	public function stpi_affBodyHeader2()
-	{
-
-	}
-
 	public function stpi_affCartUrl()
 	{
 		$nbQte = 0;
@@ -119,7 +114,7 @@ class clsbody
 		{
 			print($this->objBdd->stpi_trsBddToHTML($nbQte) . " " . $this->objTexte->stpi_getArrTxt("carturl") . ": ");
 			print($this->objBdd->stpi_trsBddToHTML($this->stpi_trsNbToPrix($nbTotal)) . "$ ");
-			print("<a href=\"./" . $this->strCheckoutUrl . "?l=" . LG . "\" >" . $this->objTexte->stpi_getArrTxt("cartpayer") . "</a>\n");
+			print("<a title=\"" . $this->objTexte->stpi_getArrTxt("cartpayer") . "\" href=\"./" . $this->strCheckoutUrl . "?l=" . LG . "\" >" . $this->objTexte->stpi_getArrTxt("cartpayer") . "</a>\n");
 		}
 		print("</div>");
 	}	

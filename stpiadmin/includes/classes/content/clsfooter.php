@@ -38,8 +38,8 @@ class clsfooter
 		$strDate = date("Y");	
 		
 		print("<p class=\"align-center\">\n");
-		print("<a target=\"_blank\" href=\"http://jigsaw.w3.org/css-validator/check/referer\" >" . $this->objTexte->stpi_getArrTxt("css") . "</a>\n");
-		print(" - <a target=\"_blank\" href=\"http://validator.w3.org/check?uri=referer\" >" . $this->objTexte->stpi_getArrTxt("xhtml") . "</a>\n");
+		print("<a target=\"_blank\" title=\"" . $this->objTexte->stpi_getArrTxt("css") . "\" href=\"http://jigsaw.w3.org/css-validator/check/referer\" >" . $this->objTexte->stpi_getArrTxt("css") . "</a>\n");
+		print(" - <a target=\"_blank\" title=\"" . $this->objTexte->stpi_getArrTxt("xhtml") . "\" href=\"http://validator.w3.org/check?uri=referer\" >" . $this->objTexte->stpi_getArrTxt("xhtml") . "</a>\n");
 		print(" - " . $this->objTexte->stpi_getArrTxt("droit") . " GPLv3 &copy; " . $strDate . " " . STR_NOM_ENT . " " . STR_NUM_VER);
 		print("</p>\n");
 	}
@@ -84,11 +84,6 @@ class clsfooter
 		print("</footer>");
 		print("</div></div></div>");
 
-		print("<!-- ScriptsStart -->");
-		print("<script src=\"stpiadmin/includes/wet-boew/theme-base/js/theme-min.js\"></script>");
-		print("<script src=\"stpiadmin/includes/wet-boew/js/settings.js\"></script>");
-		print("<script src=\"stpiadmin/includes/wet-boew/js/pe-ap-min.js\"></script>");
-		print("<!-- ScriptsEnd -->");
 		print("</body>");
 		print("</html>");
 	}

@@ -79,6 +79,12 @@ class clshead
 		print("<!--<![endif]-->\n");
 		print("<noscript><link rel=\"stylesheet\" href=\"stpiadmin/includes/wet-boew/theme-base/css/theme-ns-min.css\" /></noscript>\n");
 
+		print("<!-- ScriptsStart -->");
+		print("<script src=\"stpiadmin/includes/wet-boew/theme-base/js/theme-min.js\"></script>");
+		print("<script src=\"stpiadmin/includes/wet-boew/js/settings.js\"></script>");
+		print("<script src=\"stpiadmin/includes/wet-boew/js/pe-ap-min.js\"></script>");
+		print("<!-- ScriptsEnd -->");
+
 		print("<!-- CustomScriptsCSSStart -->\n");
 		print("<!-- CustomScriptsCSSEnd -->\n");
 		print("</head>\n");

@@ -44,9 +44,9 @@ class clsbody
 		print("<div id=\"wb-head\"><div id=\"wb-head-in\"><header>\n");
 		print("<!-- HeaderStart -->\n");
 		print("<section><div id=\"base-fullhd\"><h2>Secteur d'en-tête de plein-largeur</h2>\n");
-		print("<p class=\"mobile-hide\">id=\"base-fullhd\"</p>\n");
+		print("<p class=\"mobile-hide\">base-fullhd</p>\n");
 		print("<div id=\"base-fullhd-in\">\n");
-		print("<p class=\"mobile-hide\">id=\"base-fullhd-in\"</p>\n");
+		print("<p class=\"mobile-hide\">base-fullhd\"</p>\n");
 
 		$this->objLock->stpi_affUrl();
 		$this->stpi_affCartUrl();
@@ -65,14 +65,14 @@ class clsbody
 
 		// Main Menu
 		print("<nav role=\"navigation\">\n");
-		print("<div id=\"base-psnb\"><h2>Menu<span> du site</span></h2><div id=\"base-psnb-in\"><div class=\"wet-boew-menubar mb-mega\"><div>\n");
+		print("<div id=\"base-psnb\"><h2>Menu</span></h2><div id=\"base-psnb-in\"><div class=\"wet-boew-menubar mb-mega\"><div>\n");
 		$this->objMenu->stpi_affPublicMenu();
 		print("</div></div></div></div>\n");
 
 		// Fil d'Ariane
 		print("<div id=\"base-bc\"><h2>Fil d'Ariane</h2><div id=\"base-bc-in\">\n");
 		print("<ol>\n");
-		print("<li><a title=\"Accueil\" href=\"./home.php\">Accueil</a></li>\n");
+		print("<li><a title=\"Accueil/Home\" href=\"./index.php\">Accueil/Home</a></li>\n");
 		print("<li>$strWelcome</li>\n");
 		print("</ol>\n");
 		print("</div></div>\n");

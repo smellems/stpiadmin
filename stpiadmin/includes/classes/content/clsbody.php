@@ -44,10 +44,10 @@ class clsbody
 		print("<div id=\"wb-head\"><div id=\"wb-head-in\"><header>\n");
 		print("<!-- HeaderStart -->\n");
 		print("<section><div id=\"base-fullhd\"><h2>Secteur d'en-tête de plein-largeur</h2>\n");
-		//print("<p>&nsbp;</p>\n");
-
+		print("<p class=\"mobile-hide\">id=\"base-fullhd\"</p>\n");
 		print("<div id=\"base-fullhd-in\">\n");
-		//print("<p class=\"float-left\">&nsbp;</p>\n");
+		print("<p class=\"mobile-hide\">id=\"base-fullhd-in\"</p>\n");
+
 		$this->objLock->stpi_affUrl();
 		$this->stpi_affCartUrl();
 		$this->objMenu->stpi_affPublicMenuLang();

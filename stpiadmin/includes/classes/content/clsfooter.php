@@ -84,8 +84,25 @@ class clsfooter
 		print("</footer>");
 		print("</div></div></div>");
 
-		print("</body>");
-		print("</html>");
+		print("<!-- ScriptsStart -->\n");
+		print("<script src=\"stpiadmin/includes/wet-boew/js/settings.js\"></script>\n");
+		print("<!--[if lte IE 8]>\n");
+		print("<script src=\"stpiadmin/includes/wet-boew/theme-base/js/theme-ie-min.js\"></script>\n");
+		print("<script src=\"stpiadmin/includes/wet-boew/js/pe-ap-ie-min.js\"></script>\n");
+		print("<script src=\"stpiadmin/includes/wet-boew/js/jquerymobile/jquery.mobile-ie.min.js\"></script>\n");
+		print("<![endif]-->\n");
+		print("<!--[if gt IE 8]><!-->\n");
+		print("<script src=\"stpiadmin/includes/wet-boew/theme-base/js/theme-min.js\"></script>\n");
+		print("<script src=\"stpiadmin/includes/wet-boew/js/pe-ap-min.js\"></script>\n");
+		print("<script src=\"stpiadmin/includes/wet-boew/js/jquerymobile/jquery.mobile.min.js\"></script>\n");
+		print("<!--<![endif]-->\n");
+		print("<!-- ScriptsEnd -->\n");
+
+		print("<!-- CustomScriptsStart -->\n");
+		print("<!-- CustomScriptsEnd -->\n");
+
+		print("</body>\n");
+		print("</html>\n");
 	}
 }
 

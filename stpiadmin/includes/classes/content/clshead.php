@@ -67,10 +67,12 @@ class clshead
 
 		print("<script src=\"stpiadmin/includes/wet-boew/js/jquery.min.js\"></script>\n");
 		print("<!--[if lte IE 8]>\n");
-		print("<script src=\"stpiadmin/wet-boew/js/polyfills/html5shiv-min.js\"></script>\n");
+		print("<script src=\"stpiadmin/includes/wet-boew/js/jquery-ie.min.js\"></script>\n");
+		print("<script src=\"stpiadmin/includes/wet-boew/js/polyfills/html5shiv-min.js\"></script>\n");
 		print("<link rel=\"stylesheet\" href=\"stpiadmin/includes/wet-boew/grids/css/util-ie-min.css\" />\n");
 		print("<link rel=\"stylesheet\" href=\"stpiadmin/includes/wet-boew/js/css/pe-ap-ie-min.css\" />\n");
 		print("<link rel=\"stylesheet\" href=\"stpiadmin/includes/wet-boew/theme-base/css/theme-ie-min.css\" />\n");
+		print("<noscript><link rel=\"stylesheet\" href=\"stpiadmin/includes/wet-boew/theme-base/css/theme-ns-ie-min.css\" /></noscript>\n");
 		print("<![endif]-->\n");
 		print("<!--[if gt IE 8]><!-->\n");
 		print("<link rel=\"stylesheet\" href=\"stpiadmin/includes/wet-boew/grids/css/util-min.css\" />\n");
@@ -78,12 +80,6 @@ class clshead
 		print("<link rel=\"stylesheet\" href=\"stpiadmin/includes/wet-boew/theme-base/css/theme-min.css\" />\n");
 		print("<!--<![endif]-->\n");
 		print("<noscript><link rel=\"stylesheet\" href=\"stpiadmin/includes/wet-boew/theme-base/css/theme-ns-min.css\" /></noscript>\n");
-
-		print("<!-- ScriptsStart -->");
-		print("<script src=\"stpiadmin/includes/wet-boew/theme-base/js/theme-min.js\"></script>");
-		print("<script src=\"stpiadmin/includes/wet-boew/js/settings.js\"></script>");
-		print("<script src=\"stpiadmin/includes/wet-boew/js/pe-ap-min.js\"></script>");
-		print("<!-- ScriptsEnd -->");
 
 		print("<!-- CustomScriptsCSSStart -->\n");
 		print("<!-- CustomScriptsCSSEnd -->\n");

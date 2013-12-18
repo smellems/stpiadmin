@@ -230,30 +230,29 @@ class clsmotd
 		{
 			return false;
 		}
-	
-		print("<div class=\"motd\" >");
+
 		foreach ($arrNbMotdID as $nbMotdID)
 		{
 			if ($this->stpi_setNbID($nbMotdID))
 			{
 				$this->stpi_setObjMotdLgFromBdd();
-				print("<p>\n");
+				print("<div class=\"span-8 module-");
 				if ($this->boolRouge)
 				{
-					print("<span style=\"color:#FF0000;\">" . $this->objBdd->stpi_trsBddToHTML($this->objMotdLg->stpi_getStrMotd()) . "</span>\n");
+					print("alert");
 				}
 				else
 				{
-					print($this->objBdd->stpi_trsBddToHTML($this->objMotdLg->stpi_getStrMotd()) . "\n");
+                    print("info");
 				}
-				print("</p>\n");
+                print("\">");
+                print($this->objBdd->stpi_trsBddToHTML($this->objMotdLg->stpi_getStrMotd()) . "\n");
+				print("</div>\n");
 			}			
 		}
-		print("</div>\n");
-		
+        print("<div class=\"clear\"></div>");
 		return true;
-	}
-	
+	}	
 	
 	public function stpi_affJsAdd()
 	{

@@ -96,23 +96,26 @@ class clsmenu
 			print("<ul>\n");
 			foreach ($this->arrLang as $k => $v)
 			{
-				print("<li id=\"base-fullhd-lang");
-                if ($i > 0)
+			    if ($k == LG)
                 {
-                    print("-" . $i);
+                    print("<li id=\"base-fullhd-lang");
+                    if ($i > 0)
+                    {
+                        print("-" . $i);
+                    }
+                    print("\"><a lang=\"" . $k . "\" href=\"./" . $this->strPage);
+				    print("?l=" . $k);
+				    foreach ($_GET as $k1 => $v1)
+				    {
+					    if ($k1 != "l")
+					    {
+						    print("&amp;" . $k1 . "=" . $v1);	
+					    }
+				    }
+				    print("\" title=\"" . $v . "\">");
+				    print($v . "</a></li>\n");
+                    $i++;
                 }
-                print("\"><a lang=\"" . $k . "\" href=\"./" . $this->strPage);
-				print("?l=" . $k);
-				foreach ($_GET as $k1 => $v1)
-				{
-					if ($k1 != "l")
-					{
-						print("&amp;" . $k1 . "=" . $v1);	
-					}
-				}
-				print("\" title=\"" . $v . "\">");
-				print($v . "</a></li>\n");
-                $i++;
 			}
 			print("</ul>\n");
 		}		

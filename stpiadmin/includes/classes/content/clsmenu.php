@@ -96,7 +96,7 @@ class clsmenu
 			print("<ul>\n");
 			foreach ($this->arrLang as $k => $v)
 			{
-			    if ($k == LG)
+			    if ($k != LG)
                 {
                     print("<li id=\"base-fullhd-lang");
                     if ($i > 0)

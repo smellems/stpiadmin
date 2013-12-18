@@ -9,7 +9,7 @@
 	$this->arrErrTxt["deleting"] = "Error durante la eliminacion de la noticia.";
 	$this->arrErrTxt["editing"] = "Error durante la modificacion de la noticia.";
 
-	$this->arrTxt["typelien"] = "Tipo de news";
+	$this->arrTxt["typenews"] = "Tipo de news";
 	$this->arrTxt["title"] = "Titulo";
 	$this->arrTxt["news"] = "Noticia";
 	$this->arrTxt["add"] = "Agregar";

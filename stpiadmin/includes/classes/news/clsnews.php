@@ -269,7 +269,7 @@ class clsnews
 	public function stpi_affSearch()
 	{
 		print("<p>\n");
-		print($this->objTexte->stpi_getArrTxt("title") . "<br/>\n");
+		print($this->objTexte->stpi_getArrTxt("news") . "<br/>\n");
 		print("<input type=\"text\" onkeyup=\"stpi_SearchNews(this.value)\" maxlength=\"50\" size=\"20\" id=\"strTitre\" value=\"\" /><br/>\n");
 		print("<span id=\"stpi_affNews\"></span>\n");
 		print("</p>\n");

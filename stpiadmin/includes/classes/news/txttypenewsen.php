@@ -9,7 +9,7 @@
 	$this->arrErrTxt["deleting"] = "Error while deleting the news type.";
 	$this->arrErrTxt["editing"] = "Error while modifying the news type.";
 
-	$this->arrTxt["typelien"] = "News type";
+	$this->arrTxt["typenews"] = "News type";
 	$this->arrTxt["name"] = "Name";
 	$this->arrTxt["desc"] = "Description";
 	$this->arrTxt["facultatif"] = "Optional";

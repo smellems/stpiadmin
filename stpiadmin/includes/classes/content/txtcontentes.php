@@ -14,7 +14,7 @@
 	$this->arrTxt["cartpayer"] = "Pagar";
 
 	$this->arrTxt["css"] = "CSS Válida";
-	$this->arrTxt["xhtml"] = "XHTML Válida";
+	$this->arrTxt["xhtml"] = "HTML5 Válida";
 	$this->arrTxt["droit"] = "Derechos de autor";
 
 ?>

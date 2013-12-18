@@ -65,7 +65,7 @@ class clsbody
 
 		// Main Menu
 		print("<nav role=\"navigation\">\n");
-		print("<div id=\"base-psnb\"><h2>Menu</span></h2><div id=\"base-psnb-in\"><div class=\"wet-boew-menubar mb-mega\"><div>\n");
+		print("<div id=\"base-psnb\"><h2>Menu</h2><div id=\"base-psnb-in\"><div class=\"wet-boew-menubar mb-mega\"><div>\n");
 		$this->objMenu->stpi_affPublicMenu();
 		print("</div></div></div></div>\n");
 

@@ -92,10 +92,16 @@ class clsmenu
 		$this->stpi_setArrLang();
 		if (isset($this->arrLang))
 		{
+            $i = 0;
 			print("<ul>\n");
 			foreach ($this->arrLang as $k => $v)
 			{
-				print("<li id=\"base-fullhd-lang\"><a lang=\"LG\" href=\"./" . $this->strPage);
+				print("<li id=\"base-fullhd-lang");
+                if ($i > 0)
+                {
+                    print("-" . $i);
+                }
+                print("\"><a lang=\"" . $k . "\" href=\"./" . $this->strPage);
 				print("?l=" . $k);
 				foreach ($_GET as $k1 => $v1)
 				{
@@ -106,6 +112,7 @@ class clsmenu
 				}
 				print("\" title=\"" . $v . "\">");
 				print($v . "</a></li>\n");
+                $i++;
 			}
 			print("</ul>\n");
 		}		

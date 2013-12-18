@@ -73,7 +73,7 @@ class clsfooter
 		print("</div></div></nav>");
 
 		print("<section><div id=\"base-fullft\"><h3>Secteur de pied de page de plein-largeur</h3>");
-		print("<p>&nbsp</p>");
+		print("<p>&nbsp;</p>");
 		print("<div id=\"base-fullft-in\">");
 
 		    $this->stpi_affPublicFooter();

@@ -63,7 +63,6 @@ class clshead
 		print("<meta name=\"description\" content=\"" . $this->strDescription . "\" />\n");
 		print("<meta name=\"keywords\" content=\"" . $this->strKeyWords . "\" />\n");
 		print("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n");
-		print("<meta name=\"copyright\" content=\"Copyright &copy; $strDate " . $this->strNomEnt . "\" />\n");
 
 		print("<script src=\"stpiadmin/includes/wet-boew/js/jquery.min.js\"></script>\n");
 		print("<!--[if lte IE 8]>\n");

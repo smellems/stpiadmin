@@ -246,11 +246,11 @@ class clsmotd
                     print("info");
 				}
                 print("\">");
-                print($this->objBdd->stpi_trsBddToHTML($this->objMotdLg->stpi_getStrMotd()) . "\n");
+                print($this->objMotdLg->stpi_getStrMotd() . "\n");
 				print("</div>\n");
+                print("<div class=\"clear\"></div>");
 			}			
 		}
-        print("<div class=\"clear\"></div>");
 		return true;
 	}	
 	
@@ -268,6 +268,12 @@ class clsmotd
 		  		return;
 			}
 			document.getElementById("stpi_AddMotd").style.visibility = "hidden";
+
+			var strMotdTxtArea = [];
+			for(var i in CKEDITOR.instances) {
+			   strMotdTxtArea[CKEDITOR.instances[i].name] = CKEDITOR.instances[i].getData();
+			}
+
 			var strParam = "";
 			for (i in strLg)
 			{
@@ -275,7 +281,7 @@ class clsmotd
 		  		{
 		  			strParam = strParam + "&";
 		  		}
-				strParam = strParam + "&strMotd" + strLg[i] + "=" + encodeURIComponent(document.getElementById("strMotd" + strLg[i]).value);
+				strParam = strParam + "&strMotd" + strLg[i] + "=" + encodeURIComponent(strMotdTxtArea["strMotd" + strLg[i]]);
 			}
 			if (document.getElementById("chkRouge").checked)
 			{
@@ -327,6 +333,14 @@ class clsmotd
 			print($this->objTexte->stpi_getArrTxt("motd") . " " . $strLg . "<br/>\n");
 			print("<textarea rows=\"8\" cols=\"75\" id=\"strMotd" . $strLg . "\"></textarea><br/>\n");
 			print("</p>\n");
+            print("<script type=\"text/javascript\">\n");
+			?>
+			<!--
+			CKEDITOR.replace("strMotd" + "<?php print($strLg); ?>");
+			-->
+			<?php
+			print("</script>\n");
+
 		}
 		print("<p>\n");
 		print("<input id=\"chkRouge\" type=\"checkbox\"/>&nbsp;" . $this->objTexte->stpi_getArrTxt("rouge"));
@@ -347,6 +361,7 @@ class clsmotd
 			for (i in strLg)
 			{
 				document.getElementById("strMotd" + strLg[i]).disabled = false;
+                CKEDITOR.replace("strMotd" + strLg[i]);
 			}
 			document.getElementById("chkRouge").disabled = false;
 			document.getElementById("stpi_Edit").style.display = "none";
@@ -361,10 +376,16 @@ class clsmotd
 		  		return;
 			}
 			document.getElementById("stpi_Save").style.visibility = "hidden";
+
+            var strMotdTxtArea = [];
+			for(var i in CKEDITOR.instances) {
+			   strMotdTxtArea[CKEDITOR.instances[i].name] = CKEDITOR.instances[i].getData();
+			}
+
 			var strParam = "nbMotdID=" + encodeURIComponent(document.getElementById("nbMotdID").value);
 			for (i in strLg)
 			{
-				strParam = strParam + "&strMotd" + strLg[i] + "=" + encodeURIComponent(document.getElementById("strMotd" + strLg[i]).value);
+				strParam = strParam + "&strMotd" + strLg[i] + "=" + encodeURIComponent(strMotdTxtArea["strMotd" + strLg[i]]);
 			}
 			if (document.getElementById("chkRouge").checked)
 			{

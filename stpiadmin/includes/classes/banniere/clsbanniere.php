@@ -221,8 +221,7 @@ class clsbanniere
 			return false;
 		}
 	}
-	
-	
+
 	public function stpi_affHomePublic()
 	{
 		if (!$this->objTypeBanniere->stpi_setNbID(1))
@@ -269,59 +268,7 @@ class clsbanniere
 			}
 		}
 		print("</div>\n");
-	}
-	
-	
-	public function stpi_affPartnersPublic()
-	{
-		if (!$this->objTypeBanniere->stpi_setNbID(2))
-		{
-			return false;
-		}
-		
-		print("<div class=\"banniere\" >\n");
-		
-		$this->objTypeBanniere->stpi_setObjTypeBanniereLgFromBdd();
-		
-		$objTypeBanniereLg =& $this->objTypeBanniere->stpi_getObjTypeBanniereLg();
-		$objImg =& $this->objBanniereLg->stpi_getObjImg();
-		
-		$strDesc = $objTypeBanniereLg->stpi_getStrDesc();
-		
-		print("<h2>" . $this->objBdd->stpi_trsBddToHTML($objTypeBanniereLg->stpi_getStrName()) . "</h2>\n");
-		
-		if (!empty($strDesc))
-		{
-			print("<p>" . $this->objBdd->stpi_trsBddToHTML($strDesc) . "</p>\n");
-		}
-		
-		if (!$arrNbBanniereID = $this->objTypeBanniere->stpi_selNbBanniereID())
-		{
-			$arrNbBanniereID = array(); 
-		}
-		
-		foreach ($arrNbBanniereID as $nbBanniereID)
-		{
-			if (!$this->stpi_setNbID($nbBanniereID))
-			{
-				return false;
-			}
-			
-			$this->stpi_setObjBanniereLgFromBdd();
-			
-			if ($this->objBanniereLg->stpi_getNbImageID() != 0)
-			{
-				if ($objImg->stpi_setNbID($this->objBanniereLg->stpi_getNbImageID()))
-				{
-					print("<a href=\"" . $this->objBdd->stpi_trsBddToHTML($this->objBanniereLg->stpi_getStrLien()) . "\" >");
-					print("<img width=\"" . $this->objBdd->stpi_trsBddToHTML($objImg->stpi_getNbWidth()) . "px\" height=\"" . $this->objBdd->stpi_trsBddToHTML($objImg->stpi_getNbHeight()) . "px\" alt=\"" . $this->objBdd->stpi_trsBddToHTML($this->objBanniereLg->stpi_getStrName()) . "\" src=\"./banniereimgaff.php?l=" . $this->objBdd->stpi_trsBddToHTML(LG) . "&amp;nbImageID=" . $this->objBdd->stpi_trsBddToHTML($objImg->stpi_getNbID()) . "\" />");
-					print("</a><br/>");
-				}
-			}
-		}
-		print("</div>\n");
-	}
-	
+	}	
 	
 	public function stpi_affPublic()
 	{

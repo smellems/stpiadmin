@@ -287,6 +287,7 @@ class clsbanniere
 		}
 		print("</div>");
 		print("</div>\n");
+		print("<div class=\"clear\"></div>\n");
 	}	
 	
 	public function stpi_affPublic()

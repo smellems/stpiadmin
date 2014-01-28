@@ -229,44 +229,63 @@ class clsbanniere
 			return false;
 		}
 		
-		print("<div class=\"banniere\" >\n");
+		print("<div class=\"wet-boew-tabbedinterface tabs-style-2 cycle-slow animate slide-horz auto-play span-6\">\n");
 		
-		$this->objTypeBanniere->stpi_setObjTypeBanniereLgFromBdd();
+		//$this->objTypeBanniere->stpi_setObjTypeBanniereLgFromBdd();
 		
-		$objTypeBanniereLg =& $this->objTypeBanniere->stpi_getObjTypeBanniereLg();
+	    //$objTypeBanniereLg =& $this->objTypeBanniere->stpi_getObjTypeBanniereLg();
 		$objImg =& $this->objBanniereLg->stpi_getObjImg();
 		
-		$strDesc = $objTypeBanniereLg->stpi_getStrDesc();
+		//$strDesc = $objTypeBanniereLg->stpi_getStrDesc();
 		
-		if (!empty($strDesc))
-		{
-			print("<p>" . $this->objBdd->stpi_trsBddToHTML($strDesc) . "</p>\n");
-		}
+		//if (!empty($strDesc))
+		//{
+		//	print("<p>" . $this->objBdd->stpi_trsBddToHTML($strDesc) . "</p>\n");
+		//}
 		
 		if (!$arrNbBanniereID = $this->objTypeBanniere->stpi_selNbBanniereID())
 		{
 			$arrNbBanniereID = array(); 
 		}
-		
+
+		$nbTabs = 0;
+		print("<ul class=\"tabs\">");
 		foreach ($arrNbBanniereID as $nbBanniereID)
 		{
 			if (!$this->stpi_setNbID($nbBanniereID))
 			{
 				return false;
 			}
-			
 			$this->stpi_setObjBanniereLgFromBdd();
-			
+			$nbTabs++;
+
+			print("<li><a href=\"#tabs_$nbTabs\">" . $this->objBdd->stpi_trsBddToHTML($this->objBanniereLg->stpi_getStrName()) . "</a></li>");
+		}
+		print("</ul>");
+
+		$nbTabs = 0;
+		print("<div class=\"tabs-panel\">");
+		foreach ($arrNbBanniereID as $nbBanniereID)
+		{
+
+			if (!$this->stpi_setNbID($nbBanniereID))
+			{
+				return false;
+			}
+			$this->stpi_setObjBanniereLgFromBdd();
+			$nbTabs++;
+
 			if ($this->objBanniereLg->stpi_getNbImageID() != 0)
 			{
 				if ($objImg->stpi_setNbID($this->objBanniereLg->stpi_getNbImageID()))
 				{
-					print("<a href=\"" . $this->objBdd->stpi_trsBddToHTML($this->objBanniereLg->stpi_getStrLien()) . "\" >");
-					print("<img width=\"" . $this->objBdd->stpi_trsBddToHTML($objImg->stpi_getNbWidth()) . "px\" height=\"" . $this->objBdd->stpi_trsBddToHTML($objImg->stpi_getNbHeight()) . "px\" alt=\"" . $this->objBdd->stpi_trsBddToHTML($this->objBanniereLg->stpi_getStrName()) . "\" src=\"./banniereimgaff.php?l=" . $this->objBdd->stpi_trsBddToHTML(LG) . "&amp;nbImageID=" . $this->objBdd->stpi_trsBddToHTML($objImg->stpi_getNbID()) . "\" />");
-					print("</a><br/>");
+					print("<div id=\"tabs_$nbTabs\">");
+					print("<img alt=\"" . $this->objBdd->stpi_trsBddToHTML($this->objBanniereLg->stpi_getStrName()) . "\" src=\"./banniereimgaff.php?l=" . $this->objBdd->stpi_trsBddToHTML(LG) . "&amp;nbImageID=" . $this->objBdd->stpi_trsBddToHTML($objImg->stpi_getNbID()) . "\" />");
+					print("</div>");
 				}
 			}
 		}
+		print("</div>");
 		print("</div>\n");
 	}	
 	

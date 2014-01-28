@@ -3,8 +3,8 @@ require_once(dirname(__FILE__) . "/../img/clsimg.php");
 
 class clsbannierelg
 {
-	private $nbImgWidthMax = 300;
-	private $nbImgHeightMax = 100;
+	private $nbImgWidthMax = 800;
+	private $nbImgHeightMax = 300;
 	
 	private $objBdd;
 	private $objTexte;

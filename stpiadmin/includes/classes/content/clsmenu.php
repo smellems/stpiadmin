@@ -146,6 +146,52 @@ class clsmenu
 			}
 		}
 	}
+
+	public function stpi_affPublicFooterMenu()
+	{
+		$objMenuElement = new clsmenuelement();
+		$objMenuElement2 = new clsmenuelement();
+
+		if ($objMenuElement->stpi_setNbMenuID(2))
+		{
+			if ($arrNbMenuElementID = $objMenuElement->stpi_selNbMenuID())
+			{
+				
+				foreach ($arrNbMenuElementID as $nbMenuElementID)
+				{
+					if ($objMenuElement->stpi_setNbID($nbMenuElementID))
+					{
+						if ($objMenuElement->stpi_setObjMenuElementLgFromBdd())
+						{
+							print("<section><div class=\"span-2\">\n");
+							print("<h4 class=\"base-col-head\"><a href=\"" . $this->objBdd->stpi_trsBddToHTML($objMenuElement->stpi_getObjMenuElementLg()->stpi_getStrLien()) . "\">");
+							print($this->objBdd->stpi_trsBddToHTML($objMenuElement->stpi_getObjMenuElementLg()->stpi_getStrText()) . "</a></h4>\n");
+
+							if ($arrNbMenuElementID2 = $objMenuElement->stpi_selNbParentID())
+							{
+								print("<ul>\n");
+								foreach ($arrNbMenuElementID2 as $nbMenuElementID2)
+								{
+									if ($objMenuElement2->stpi_setNbID($nbMenuElementID2))
+									{
+										if ($objMenuElement2->stpi_setObjMenuElementLgFromBdd())
+										{
+											print("<li><a href=\"" . $this->objBdd->stpi_trsBddToHTML($objMenuElement2->stpi_getObjMenuElementLg()->stpi_getStrLien()) . "\">");
+											print($this->objBdd->stpi_trsBddToHTML($objMenuElement2->stpi_getObjMenuElementLg()->stpi_getStrText()) . "</a></li>\n");
+										}
+									}
+								}
+								print("</ul>\n");
+							}
+							print("</div></section>\n");
+
+						}
+					}
+				}
+				
+			}
+		}
+	}
 }
 
 ?>

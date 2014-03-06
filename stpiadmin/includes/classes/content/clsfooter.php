@@ -1,5 +1,7 @@
 <?php
 
+require_once(dirname(__FILE__) . "/../content/clsmenu.php");
+
 class clsfooter
 {
 	private $objTexte;
@@ -11,8 +13,8 @@ class clsfooter
 	public function __construct()
 	{
 		$this->objTexte = new clstexte(dirname(__FILE__) . "/txtcontent");
-		
 		$ndtDerniere = filemtime(basename($_SERVER["SCRIPT_NAME"]));
+		$this->objMenu = new clsmenu(basename($_SERVER["SCRIPT_NAME"]));
 		$this->strLastUpdate = date("Y-m-d", $ndtDerniere);
 	}		
 	
@@ -56,19 +58,10 @@ class clsfooter
 		print("<div id=\"wb-foot\"><div id=\"wb-foot-in\"><footer><h2 id=\"wb-nav\">Pied de page</h2>");
 		print("<!-- FooterStart -->");
 		print("<nav role=\"navigation\"><div id=\"base-sft\"><h3>Pied de page du site</h3><div id=\"base-sft-in\">");
-		print("<section><div class=\"span-2\"><h4 class=\"base-col-head\"><a href=\"#\">À propos de nous</a></h4>");
-		print("<ul>");
-		print("<li><a href=\"#\">Notre mandat</a></li>");
-		print("<li><a href=\"#\">Notre histoire</a></li>");
-		print("</ul>");
-		print("</div></section>");
-		print("<section><div class=\"span-2\"><h4 class=\"base-col-head\"><a href=\"#\">Nouvelles</a></h4>");
-		print("<ul>");
-		print("<li><a href=\"#\">Communiqués</a></li>");
-		print("<li><a href=\"#\">Avix aux médias</a></li>");
-		print("<li><a href=\"#\">Multimédia</a></li>");
-		print("</ul>");
-		print("</div></section>");
+
+		print("<div class=\"span-2\"></div>\n");
+		$this->objMenu->stpi_affPublicFooterMenu();
+		print("<div class=\"clear\"></div>\n");
 
 		print("</div></div></nav>");
 
@@ -76,7 +69,7 @@ class clsfooter
 		print("<p>&nbsp;</p>");
 		print("<div id=\"base-fullft-in\">");
 
-		    $this->stpi_affPublicFooter();
+		$this->stpi_affPublicFooter();
 
 		print("</div>");
 		print("</div></section>");

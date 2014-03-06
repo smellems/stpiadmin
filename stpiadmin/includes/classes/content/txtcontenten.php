@@ -1,14 +1,14 @@
 <?php
 
 	$this->arrTxt["exit"] = "Exit";
+
+	$this->arrTxt["skiptomaincontent"] = "Skip to main content";
+	$this->arrTxt["skiptofooter"] = "Skip to footer";
+	$this->arrTxt["headfull"] = "Header full width section";
 	
-	$this->arrTxt["menuhome"] = "Home";
-	$this->arrTxt["menushop"] = "Shop";
-	$this->arrTxt["menuregistre"] = "Gift List";
-	$this->arrTxt["menuevent"] = "Events";
-	$this->arrTxt["menuabout"] = "About Us";
-	$this->arrTxt["menucontact"] = "Contact";
-	$this->arrTxt["menupartners"] = "Links";
+	$this->arrTxt["footer"] = "Footer";
+	$this->arrTxt["sitefooter"] = "Site footer";
+	$this->arrTxt["footerfull"] = "Footer full width section";
 	
 	$this->arrTxt["carturl"] = "item(s) in cart";
 	$this->arrTxt["cartpayer"] = "Checkout";

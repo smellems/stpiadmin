@@ -37,13 +37,13 @@ class clsbody
 		print("<div id=\"wb-body" . $strBodyId . "\">\n");
 		print("<div id=\"wb-skip\">\n");
 		print("<ul id=\"wb-tphp\">\n");
-		print("<li id=\"wb-skip1\"><a title=\"Passer au contenu principal\" href=\"#wb-cont\">Passer au contenu principal</a></li>\n");
-		print("<li id=\"wb-skip2\"><a title=\"Passer au pied de page\" href=\"#wb-nav\">Passer au pied de page</a></li>\n");
+		print("<li id=\"wb-skip1\"><a title=\"" . $this->objTexte->stpi_getArrTxt("skiptomaincontent") . "\" href=\"#wb-cont\">" . $this->objTexte->stpi_getArrTxt("skiptomaincontent") . "</a></li>\n");
+		print("<li id=\"wb-skip2\"><a title=\"" . $this->objTexte->stpi_getArrTxt("skiptofooter") . "\" href=\"#wb-nav\">" . $this->objTexte->stpi_getArrTxt("skiptofooter") . "</a></li>\n");
 		print("</ul>\n");
 		print("</div>\n");
 		print("<div id=\"wb-head\"><div id=\"wb-head-in\"><header>\n");
 		print("<!-- HeaderStart -->\n");
-		print("<section><div id=\"base-fullhd\"><h2>Secteur d'en-tête de plein-largeur</h2>\n");
+		print("<section><div id=\"base-fullhd\"><h2>" . $this->objTexte->stpi_getArrTxt("headfull") . "</h2>\n");
 		print("<p class=\"mobile-hide\">&nbsp;</p>\n");
 		print("<div id=\"base-fullhd-in\">\n");
 		//print("<p class=\"mobile-hide\">&nbsp;</p>\n");

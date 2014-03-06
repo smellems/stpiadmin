@@ -55,9 +55,9 @@ class clsfooter
 		}
 		print("</div></div>");
 
-		print("<div id=\"wb-foot\"><div id=\"wb-foot-in\"><footer><h2 id=\"wb-nav\">Pied de page</h2>");
+		print("<div id=\"wb-foot\"><div id=\"wb-foot-in\"><footer><h2 id=\"wb-nav\">" . $this->objTexte->stpi_getArrTxt("footer") . "</h2>");
 		print("<!-- FooterStart -->");
-		print("<nav role=\"navigation\"><div id=\"base-sft\"><h3>Pied de page du site</h3><div id=\"base-sft-in\">");
+		print("<nav role=\"navigation\"><div id=\"base-sft\"><h3>" . $this->objTexte->stpi_getArrTxt("sitefooter") . "</h3><div id=\"base-sft-in\">");
 
 		print("<div class=\"span-2\"></div>\n");
 		$this->objMenu->stpi_affPublicFooterMenu();
@@ -65,7 +65,7 @@ class clsfooter
 
 		print("</div></div></nav>");
 
-		print("<section><div id=\"base-fullft\"><h3>Secteur de pied de page de plein-largeur</h3>");
+		print("<section><div id=\"base-fullft\"><h3>" . $this->objTexte->stpi_getArrTxt("footerfull") . "</h3>");
 		print("<p>&nbsp;</p>");
 		print("<div id=\"base-fullft-in\">");
 

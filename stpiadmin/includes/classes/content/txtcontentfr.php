@@ -1,14 +1,14 @@
 <?php
 
 	$this->arrTxt["exit"] = "Sortir";
+
+	$this->arrTxt["skiptomaincontent"] = "Passer au contenu principal";
+	$this->arrTxt["skiptofooter"] = "Passer au pied de page";
+	$this->arrTxt["headfull"] = "Secteur d'en-tête de plein-largeur";
 	
-	$this->arrTxt["menuhome"] = "Accueil";
-	$this->arrTxt["menushop"] = "Boutique";
-	$this->arrTxt["menuregistre"] = "Registre de cadeaux";
-	$this->arrTxt["menuevent"] = "Évènements";
-	$this->arrTxt["menuabout"] = "À propos de nous";
-	$this->arrTxt["menucontact"] = "Contact";
-	$this->arrTxt["menupartners"] = "Liens";
+	$this->arrTxt["footer"] = "Pied de page";
+	$this->arrTxt["sitefooter"] = "Pied de page du site";
+	$this->arrTxt["footerfull"] = "Secteur de pied de page de plein-largeur";
 	
 	$this->arrTxt["carturl"] = "item(s) dans le panier";
 	$this->arrTxt["cartpayer"] = "Payer";
